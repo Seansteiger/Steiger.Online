@@ -77,6 +77,10 @@ const AIAssistant: React.FC = () => {
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+      {/* Backdrop Blur Overlay */}
+      {isOpen && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[-1]" onClick={() => setIsOpen(false)}></div>
+      )}
 
       {/* Chat Window */}
       {isOpen && (

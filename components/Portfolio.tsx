@@ -25,22 +25,22 @@ const Portfolio: React.FC = () => {
           {PROJECTS.map((project, index) => (
             <div
               key={project.id}
-              className="group relative rounded-xl overflow-hidden bg-slate-900 border border-white/5 hover:border-neon-cyan/50 transition-all duration-500"
+              className="group relative rounded-xl overflow-hidden bg-slate-900 border border-white/5 hover:border-neon-cyan/50 active:border-neon-cyan/50 transition-all duration-500"
             >
               {/* Image Container */}
               <div className="relative h-64 overflow-hidden">
                 {project.link ? (
                   <a href={project.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-                    <div className="absolute inset-0 bg-slate-900/50 group-hover:bg-slate-900/20 transition-colors z-10 w-full h-full"></div>
+                    <div className="absolute inset-0 bg-slate-900/50 group-hover:bg-slate-900/20 group-active:bg-slate-900/20 transition-colors z-10 w-full h-full"></div>
                     <img
                       src={project.imageUrl}
                       alt={project.title}
-                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out grayscale group-hover:grayscale-0"
+                      className="w-full h-full object-cover transform group-hover:scale-110 group-active:scale-110 transition-transform duration-700 ease-in-out grayscale group-hover:grayscale-0 group-active:grayscale-0"
                     />
                   </a>
                 ) : (
                   <>
-                    <div className="absolute inset-0 bg-slate-900/50 group-hover:bg-slate-900/20 transition-colors z-10"></div>
+                    <div className="absolute inset-0 bg-slate-900/50 group-hover:bg-slate-900/20 group-active:bg-slate-900/20 transition-colors z-10"></div>
                     <img
                       src={project.imageUrl}
                       alt={project.title}
