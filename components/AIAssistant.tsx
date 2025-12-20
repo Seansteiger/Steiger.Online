@@ -45,7 +45,10 @@ const AIAssistant: React.FC = () => {
       });
 
       // Construct history for context
-      const history = messages.slice(-10).map(m => ({
+      // Construct history for context, excluding the initial greeting (index 0)
+      // and ensuring we don't send a 'model' role as the first message in history
+      const historyMsg = messages.filter((_, i) => i > 0);
+      const history = historyMsg.slice(-10).map(m => ({
         role: m.role as "user" | "model",
         parts: [{ text: m.text }]
       }));
