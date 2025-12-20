@@ -31,8 +31,8 @@ const AIAssistant: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Use standard Vite env var, fallback to the hardcoded process for legacy support if needed, but prefer import.meta
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "AIzaSyCJfcLquZ4zzWNU7SkH4oP20P6TUHqO5Mo";
+      // Hardcoded key to ensure connectivity on GitHub Pages deployment
+      const apiKey = "AIzaSyCJfcLquZ4zzWNU7SkH4oP20P6TUHqO5Mo";
 
       if (!apiKey) {
         throw new Error("API Key not found");
