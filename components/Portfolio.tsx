@@ -1,4 +1,3 @@
-```typescript
 import React, { useState, useEffect, useRef } from 'react';
 import { ExternalLink, Github } from 'lucide-react';
 import { PROJECTS } from '../constants';
@@ -80,46 +79,41 @@ const Portfolio: React.FC = () => {
                 ref={el => cardsRef.current[index] = el}
                 data-id={project.id}
                 tabIndex={0}
-                className={`group relative rounded - xl overflow - hidden bg - slate - 900 border transition - all duration - 500 focus: outline - none ${
-  isActive
-    ? 'border-neon-cyan/50 shadow-[0_0_30px_rgba(6,182,212,0.15)]'
-    : 'border-white/5 hover:border-neon-cyan/50 focus-within:border-neon-cyan/50'
-} `}
+                className={`group relative rounded-xl overflow-hidden bg-slate-900 border transition-all duration-500 focus:outline-none ${isActive
+                    ? 'border-neon-cyan/50 shadow-[0_0_30px_rgba(6,182,212,0.15)]'
+                    : 'border-white/5 hover:border-neon-cyan/50 focus-within:border-neon-cyan/50'
+                  }`}
               >
                 {/* Image Container */}
                 <div className="relative h-64 overflow-hidden">
                   {project.link ? (
                     <a href={project.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full focus:outline-none">
-                      <div className={`absolute inset - 0 transition - colors duration - 500 z - 10 w - full h - full ${
-  isActive
-    ? 'bg-slate-900/20'
-    : 'bg-slate-900/50 group-hover:bg-slate-900/20 group-focus-within:bg-slate-900/20'
-} `}></div>
+                      <div className={`absolute inset-0 transition-colors duration-500 z-10 w-full h-full ${isActive
+                          ? 'bg-slate-900/20'
+                          : 'bg-slate-900/50 group-hover:bg-slate-900/20 group-focus-within:bg-slate-900/20'
+                        }`}></div>
                       <img
                         src={project.imageUrl}
                         alt={project.title}
-                        className={`w - full h - full object - cover transition - transform duration - 700 ease -in -out ${
-  isActive
-    ? 'scale-110 grayscale-0'
-    : 'grayscale group-hover:scale-110 group-focus-within:scale-110 group-hover:grayscale-0 group-focus-within:grayscale-0'
-} `}
+                        className={`w-full h-full object-cover transition-transform duration-700 ease-in-out ${isActive
+                            ? 'scale-110 grayscale-0'
+                            : 'grayscale group-hover:scale-110 group-focus-within:scale-110 group-hover:grayscale-0 group-focus-within:grayscale-0'
+                          }`}
                       />
                     </a>
                   ) : (
                     <>
-                      <div className={`absolute inset - 0 transition - colors duration - 500 z - 10 ${
-  isActive
-    ? 'bg-slate-900/20'
-    : 'bg-slate-900/50 group-hover:bg-slate-900/20 group-focus-within:bg-slate-900/20'
-} `}></div>
+                      <div className={`absolute inset-0 transition-colors duration-500 z-10 ${isActive
+                          ? 'bg-slate-900/20'
+                          : 'bg-slate-900/50 group-hover:bg-slate-900/20 group-focus-within:bg-slate-900/20'
+                        }`}></div>
                       <img
                         src={project.imageUrl}
                         alt={project.title}
-                        className={`w - full h - full object - cover transition - transform duration - 700 ease -in -out ${
-  isActive
-    ? 'scale-110 grayscale-0'
-    : 'grayscale group-hover:scale-110 group-focus-within:scale-110 group-hover:grayscale-0 group-focus-within:grayscale-0'
-} `}
+                        className={`w-full h-full object-cover transition-transform duration-700 ease-in-out ${isActive
+                            ? 'scale-110 grayscale-0'
+                            : 'grayscale group-hover:scale-110 group-focus-within:scale-110 group-hover:grayscale-0 group-focus-within:grayscale-0'
+                          }`}
                       />
                     </>
                   )}
@@ -137,21 +131,19 @@ const Portfolio: React.FC = () => {
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`absolute top - 0 right - 8 - translate - y - 1 / 2 w - 12 h - 12 bg - neon - cyan text - void rounded - full flex items - center justify - center transition - all duration - 300 shadow - [0_0_20px_rgba(6, 182, 212, 0.6)] z - 20 cursor - pointer hover: scale - 110 focus: outline - none ${
-  isActive
-    ? 'opacity-100 translate-y-[-50%]'
-    : 'opacity-0 translate-y-4 group-hover:opacity-100 group-focus-within:opacity-100 group-hover:translate-y-[-50%] group-focus-within:translate-y-[-50%]'
-} `}
+                      className={`absolute top-0 right-8 -translate-y-1/2 w-12 h-12 bg-neon-cyan text-void rounded-full flex items-center justify-center transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.6)] z-20 cursor-pointer hover:scale-110 focus:outline-none ${isActive
+                          ? 'opacity-100 translate-y-[-50%]'
+                          : 'opacity-0 translate-y-4 group-hover:opacity-100 group-focus-within:opacity-100 group-hover:translate-y-[-50%] group-focus-within:translate-y-[-50%]'
+                        }`}
                     >
                       <ExternalLink className="w-5 h-5" />
                     </a>
                   )}
 
-                  <h3 className={`text - 2xl font - display font - bold mb - 2 transition - colors ${
-  isActive
-    ? 'text-neon-cyan'
-    : 'text-white group-hover:text-neon-cyan group-focus-within:text-neon-cyan'
-} `}>
+                  <h3 className={`text-2xl font-display font-bold mb-2 transition-colors ${isActive
+                      ? 'text-neon-cyan'
+                      : 'text-white group-hover:text-neon-cyan group-focus-within:text-neon-cyan'
+                    }`}>
                     {project.title}
                   </h3>
 
