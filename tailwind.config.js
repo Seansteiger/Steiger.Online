@@ -9,8 +9,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
-        display: ['ui-monospace', '"SF Mono"', '"Courier New"', 'monospace'],
+        sans: ['"Space Grotesk"', 'sans-serif'],
+        display: ['"Orbitron"', 'sans-serif'],
       },
       colors: {
         neon: {
