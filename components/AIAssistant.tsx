@@ -40,7 +40,7 @@ const AIAssistant: React.FC = () => {
 
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash",
+        model: "gemini-1.5-flash-001",
         systemInstruction: SYSTEM_INSTRUCTION
       });
 
