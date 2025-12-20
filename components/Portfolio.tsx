@@ -20,31 +20,27 @@ const Portfolio: React.FC = () => {
 
     // Initialize IntersectionObserver to track scroll position
     observerRef.current = new IntersectionObserver((entries) => {
-      // Check if device supports hover (desktop-like)
-      const isHoverable = window.matchMedia('(hover: hover)').matches;
+      // Robust check for desktop/mouse environments
+      const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-      // On desktop (hoverable), we DON'T want scroll to trigger active state
-      // We rely on CSS group-hover instead.
-      if (isHoverable) {
+      if (isDesktop) {
+        // On desktop, we disable scroll-based activation entirely.
+        // We clear any active ID so CSS group-hover can work without interference.
         setActiveId(null);
         return;
       }
 
       entries.forEach((entry) => {
-        // If card is visible, activate it on mobile
         if (entry.isIntersecting) {
+          // Mobile: Card is in the center "focus zone"
           setActiveId(entry.target.getAttribute('data-id'));
-        } else {
-          const targetId = entry.target.getAttribute('data-id');
-          if (targetId) {
-            // Only clear if it matches to avoid flickering
-            setActiveId(prev => (prev === targetId ? null : prev));
-          }
         }
       });
     }, {
-      threshold: 0.4, // Lower threshold for easier activation on mobile
-      rootMargin: "0px" // Remove negative margin to capture entry earlier
+      threshold: 0,
+      // This margin creates a horizontal strip in the middle 20% of the viewport (40% top + 40% bottom masked out)
+      // Elements only "intersect" when they enter this center strip.
+      rootMargin: "-40% 0px -40% 0px"
     });
 
     // Observe only the currently visible projects
