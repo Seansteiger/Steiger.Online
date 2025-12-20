@@ -62,7 +62,12 @@ const AIAssistant: React.FC = () => {
 
     } catch (error) {
       console.error("AI Error:", error);
-      setMessages(prev => [...prev, { role: 'model', text: "Systems offline. Please verify API configuration or try again later.", timestamp: new Date() }]);
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      setMessages(prev => [...prev, {
+        role: 'model',
+        text: `Systems offline. Error details: ${errorMessage}. Please verify API configuration or try again later.`,
+        timestamp: new Date()
+      }]);
     } finally {
       setIsLoading(false);
     }
