@@ -20,25 +20,33 @@ const Portfolio: React.FC = () => {
 
     // Initialize IntersectionObserver to track scroll position
     observerRef.current = new IntersectionObserver((entries) => {
-      // Use standard breakpoint check (768px) to distinguish mobile from desktop
-      const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+      // Check for hover capability to distinguish Desktop vs Mobile behavior
+      const isHoverable = window.matchMedia('(hover: hover)').matches;
 
-      if (isDesktop) {
-        // Desktop: No scroll activation, rely on hover
+      // On Desktop (hoverable), we purely rely on CSS hover effects.
+      // We explicitly DO NOT set activeId via scroll, to avoid "stuck" lit tiles.
+      if (isHoverable) {
         setActiveId(null);
         return;
       }
 
       entries.forEach((entry) => {
+        // Mobile Logic: Imitate the "working before" state
         if (entry.isIntersecting) {
-          // Mobile: Card activates when entering the center 50% zone
           setActiveId(entry.target.getAttribute('data-id'));
+        } else {
+          // Clear active state when leaving view to keep focus dynamic
+          const targetId = entry.target.getAttribute('data-id');
+          if (targetId) {
+            setActiveId(prev => (prev === targetId ? null : prev));
+          }
         }
       });
     }, {
-      threshold: 0.1,
-      // Middle 50% of the screen is the "active zone" (25% margin top/bottom)
-      rootMargin: "-25% 0px -25% 0px"
+      // Restore original working values
+      threshold: 0.65,
+      // Adjust for navbar/bottom offset as in original code
+      rootMargin: "0px 0px -100px 0px"
     });
 
     // Observe only the currently visible projects
