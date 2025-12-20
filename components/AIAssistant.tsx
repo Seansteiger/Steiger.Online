@@ -31,7 +31,9 @@ const AIAssistant: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const apiKey = process.env.API_KEY;
+      // Use standard Vite env var, fallback to the hardcoded process for legacy support if needed, but prefer import.meta
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "AIzaSyCJfcLquZ4zzWNU7SkH4oP20P6TUHqO5Mo";
+
       if (!apiKey) {
         throw new Error("API Key not found");
       }
@@ -45,7 +47,7 @@ const AIAssistant: React.FC = () => {
       }));
 
       const chat = ai.chats.create({
-        model: 'gemini-3-flash-preview',
+        model: 'gemini-1.5-flash',
         config: {
           systemInstruction: SYSTEM_INSTRUCTION,
         },
@@ -152,7 +154,7 @@ const AIAssistant: React.FC = () => {
               </button>
             </div>
             <div className="mt-2 text-[10px] text-center text-slate-600">
-              Powered by Gemini 3 Flash
+              Powered by Gemini 1.5 Flash
             </div>
           </div>
         </div>
