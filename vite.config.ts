@@ -11,10 +11,6 @@ export default defineConfig(({ mode }) => {
       host: '0.0.0.0',
     },
     plugins: [react()],
-    define: {
-      'process.env.API_KEY': JSON.stringify("AIzaSyCJfcLquZ4zzWNU7SkH4oP20P6TUHqO5Mo"),
-      'process.env.GEMINI_API_KEY': JSON.stringify("AIzaSyCJfcLquZ4zzWNU7SkH4oP20P6TUHqO5Mo")
-    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

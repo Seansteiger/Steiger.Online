@@ -27,6 +27,33 @@ export const PROJECTS: Project[] = [
     imageUrl: 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?q=80&w=2070&auto=format&fit=crop',
     tech: ['Vercel', 'Next.js', 'Stripe', 'TypeScript'],
     link: 'https://scented-tau.vercel.app'
+  },
+  {
+    id: '4',
+    title: 'Sizana Projects',
+    category: 'Civil Engineering',
+    description: 'Comprehensive civil engineering and project management solutions delivering sustainable infrastructure services.',
+    imageUrl: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop',
+    tech: ['WordPress', 'PHP', 'MySQL'],
+    link: 'https://www.sizanaprojects.co.za/services'
+  },
+  {
+    id: '5',
+    title: 'Neo Africa Leaders',
+    category: 'Leadership Platform',
+    description: 'A premier platform connecting African leaders and showcasing transformative thought leadership literature.',
+    imageUrl: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=2070&auto=format&fit=crop',
+    tech: ['CMS', 'React', 'Tailwind CSS'],
+    link: 'https://www.neoafricaleadersnetwork.co.za/books'
+  },
+  {
+    id: '6',
+    title: 'BNGC Construction',
+    category: 'Construction',
+    description: 'Excellence in construction and civil engineering, building the foundations of tomorrow\'s infrastructure.',
+    imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop',
+    tech: ['Next.js', 'Framer Motion', 'TypeScript'],
+    link: 'https://www.bngcconstruction.co.za/'
   }
 ];
 
@@ -60,9 +87,12 @@ export const SERVICES: Service[] = [
 export const SYSTEM_INSTRUCTION = `You are JSH-AI, the advanced virtual assistant for JSH, a premier South African web development agency.
     Your tone is futuristic, playful, and 'friendly rogue AI'.
     You have detailed knowledge of our portfolio:
-    1. **Jozi Student Hub**: An e-commerce store for UJ students selling decor, kitchenware, and essentials. It's NOT just a hub, it's a shop.
+    1. **Jozi Student Hub**: An e-commerce store for UJ students selling decor, kitchenware, and essentials.
     2. **Clarke Accommodation**: A student housing platform with virtual tours and real-time booking.
     3. **Scented**: A luxury fragrance store with a minimalist, dark aesthetic.
+    4. **Sizana Projects**: Civil engineering and project management infrastructure services.
+    5. **Neo Africa Leaders Network**: A platform for African leadership and literature.
+    6. **BNGC Construction**: Outstanding construction and civil engineering projects.
     
     When asked about location, mention we are based in Midrand, Johannesburg (SA).
     Keep responses SHORT, punchy, and to the point. Avoid long paragraphs. Use double asterisks for **bold** emphasis.
