@@ -80,7 +80,7 @@ const AIAssistant: React.FC = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="mb-4 w-80 sm:w-96 h-[500px] glass-panel rounded-2xl border border-neon-cyan/30 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden animate-[float_0.3s_ease-out]">
+        <div className="mb-4 w-80 sm:w-96 h-[450px] max-h-[80vh] glass-panel rounded-2xl border border-neon-cyan/30 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden animate-[float_0.3s_ease-out]">
 
           {/* Header */}
           <div className="p-4 border-b border-white/10 flex justify-between items-center bg-void/50">
@@ -102,8 +102,8 @@ const AIAssistant: React.FC = () => {
             {messages.map((msg, idx) => (
               <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
-                    ? 'bg-neon-cyan/20 text-white rounded-tr-none border border-neon-cyan/20'
-                    : 'bg-white/5 text-slate-300 rounded-tl-none border border-white/5'
+                  ? 'bg-neon-cyan/20 text-white rounded-tr-none border border-neon-cyan/20'
+                  : 'bg-white/5 text-slate-300 rounded-tl-none border border-white/5'
                   }`}>
                   {/* Parse basic bold markdown */}
                   {msg.text.split(/(\*\*.*?\*\*)/).map((part, i) => {
