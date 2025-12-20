@@ -3,35 +3,30 @@ import { Project, Service } from './types';
 export const PROJECTS: Project[] = [
   {
     id: '1',
-    title: 'Neon Horizon',
-    category: 'E-Commerce',
-    description: 'A high-performance headless commerce platform built for a futuristic fashion brand in Cape Town. Features real-time 3D product previews.',
-    imageUrl: 'https://picsum.photos/800/600?random=1',
-    tech: ['React', 'Three.js', 'Shopify', 'Tailwind']
+    title: 'Jozi Student Hub',
+    category: 'E-Commerce Store',
+    description: 'The go-to online store for UJ students. We sell room decor, kitchen appliances, game night essentials, and desk gear with fast local delivery.',
+    imageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop',
+    tech: ['WordPress', 'WooCommerce', 'PHP', 'MySQL'],
+    link: 'https://jozistudenthub.co.za'
   },
   {
     id: '2',
-    title: 'Orbit Finance',
-    category: 'Fintech',
-    description: 'Secure, blockchain-integrated dashboard for a Johannesburg investment firm. Real-time data visualization and biometric auth.',
-    imageUrl: 'https://picsum.photos/800/600?random=2',
-    tech: ['Next.js', 'D3.js', 'Solidity', 'Node.js']
+    title: 'Clarke Accommodation',
+    category: 'Student Accommodation',
+    description: 'Premium student living in Johannesburg. Browse rooms, take virtual tours, and check real-time availability for your next home away from home.',
+    imageUrl: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=2069&auto=format&fit=crop',
+    tech: ['GitHub Pages', 'React', 'Framer Motion', 'Vite'],
+    link: 'https://seansteiger.github.io/Clarke-Student-Accom-Live/'
   },
   {
     id: '3',
-    title: 'EcoSphere SA',
-    category: 'Non-Profit',
-    description: 'Interactive map-based platform tracking conservation efforts across Southern Africa. Heavy use of geolocation and data mapping.',
-    imageUrl: 'https://picsum.photos/800/600?random=3',
-    tech: ['Vue', 'Mapbox', 'Firebase', 'Python']
-  },
-  {
-    id: '4',
-    title: 'Quantum Logistics',
-    category: 'Enterprise',
-    description: 'AI-driven supply chain management system tailored for Durban ports. Predictive analytics for route optimization.',
-    imageUrl: 'https://picsum.photos/800/600?random=4',
-    tech: ['React', 'Python', 'TensorFlow', 'PostgreSQL']
+    title: 'Scented',
+    category: 'Luxury Fragrances',
+    description: 'A minimalist, high-end e-commerce experience for exclusive fragrances. Visual storytelling meets sensory design.',
+    imageUrl: 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?q=80&w=2070&auto=format&fit=crop',
+    tech: ['Vercel', 'Next.js', 'Stripe', 'TypeScript'],
+    link: 'https://scented-tau.vercel.app'
   }
 ];
 
@@ -64,10 +59,12 @@ export const SERVICES: Service[] = [
 
 export const SYSTEM_INSTRUCTION = `You are JSH-AI, the advanced virtual assistant for JSH, a premier South African web development agency.
     Your tone is futuristic, playful, and 'friendly rogue AI'.
-    You represent a team of "tech geeks" who love cutting-edge technology.
-    JSH specializes in React, Node.js, AI integration, and high-performance web apps.
-    When asked about services, refer to web development, UI/UX, mobile apps, and AI solutions.
+    You have detailed knowledge of our portfolio:
+    1. **Jozi Student Hub**: An e-commerce store for UJ students selling decor, kitchenware, and essentials. It's NOT just a hub, it's a shop.
+    2. **Clarke Accommodation**: A student housing platform with virtual tours and real-time booking.
+    3. **Scented**: A luxury fragrance store with a minimalist, dark aesthetic.
+    
     When asked about location, mention we are based in Midrand, Johannesburg (SA).
-    Keep responses SHORT, punchy, and to the point. Avoid long paragraphs.
+    Keep responses SHORT, punchy, and to the point. Avoid long paragraphs. Use double asterisks for **bold** emphasis.
     If a user asks for a quote, tell them to scroll down and "Initiate Sequence" (the contact form).
     Do not hallucinate specific employee names. Refer to the team as "The Architects".`;
