@@ -36,14 +36,24 @@ GEMINI_API_KEY=your_api_key_here
 ```
 
 ## Deployment
-This project is configured for easy deployment to GitHub Pages.
 
+### Automatic Deployment to GitHub Pages
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+**Setup Instructions:**
+1. Go to your repository Settings > Pages
+2. Under "Source", select "GitHub Actions"
+3. The site will automatically deploy when you push to the `main` branch
+4. Your site will be available at: `https://seansteiger.github.io/JSH-Digital-Architects/`
+
+### Manual Deployment
+To deploy manually:
 1. Build the project:
    ```bash
    npm run build
    ```
 2. The output will be in the `dist` folder.
-3. Deploy the content of `dist` to your hosting provider or use a GitHub Action to deploy to `gh-pages`.
+3. Deploy the content of `dist` to your hosting provider.
 
 ## Technologies
 - **React** 19
