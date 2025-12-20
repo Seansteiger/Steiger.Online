@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, Send, X, Bot, Loader2, Sparkles } from 'lucide-react';
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { SYSTEM_INSTRUCTION } from '../constants';
 import { ChatMessage } from '../types';
 
@@ -38,27 +38,25 @@ const AIAssistant: React.FC = () => {
         throw new Error("API Key not found");
       }
 
-      const ai = new GoogleGenAI({ apiKey });
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({
+        model: "gemini-1.5-flash",
+        systemInstruction: SYSTEM_INSTRUCTION
+      });
 
       // Construct history for context
       const history = messages.slice(-10).map(m => ({
-        role: m.role,
+        role: m.role as "user" | "model",
         parts: [{ text: m.text }]
       }));
 
-      const chat = ai.chats.create({
-        model: 'gemini-1.5-flash',
-        config: {
-          systemInstruction: SYSTEM_INSTRUCTION,
-        },
+      const chat = model.startChat({
         history: history
       });
 
-      const result = await chat.sendMessage({
-        message: userMsg.text
-      });
-
-      const responseText = result.text || "I apologize, I didn't receive a clear response from my neural network.";
+      const result = await chat.sendMessage(userMsg.text);
+      const response = await result.response;
+      const responseText = response.text();
 
       setMessages(prev => [...prev, { role: 'model', text: responseText, timestamp: new Date() }]);
 
