@@ -20,26 +20,31 @@ const Portfolio: React.FC = () => {
 
     // Initialize IntersectionObserver to track scroll position
     observerRef.current = new IntersectionObserver((entries) => {
+      // Check if device supports hover (desktop-like)
+      const isHoverable = window.matchMedia('(hover: hover)').matches;
+
+      // On desktop (hoverable), we DON'T want scroll to trigger active state
+      // We rely on CSS group-hover instead.
+      if (isHoverable) {
+        setActiveId(null);
+        return;
+      }
+
       entries.forEach((entry) => {
-        // If card is significantly visible (centered), activate it
+        // If card is visible, activate it on mobile
         if (entry.isIntersecting) {
           setActiveId(entry.target.getAttribute('data-id'));
         } else {
-          // Optional: If we want strict "one at a time", we could clear it, 
-          // but usually letting the next one take over is smoother.
-          // We check if the exiting card is the active one before clearing, 
-          // but actually just leaving it 'lit' until the next one hits is a nice trail effect.
-          // User asked: "go back to initial state when i scroll elsewhere".
-          // So strict checking is better.
           const targetId = entry.target.getAttribute('data-id');
           if (targetId) {
+            // Only clear if it matches to avoid flickering
             setActiveId(prev => (prev === targetId ? null : prev));
           }
         }
       });
     }, {
-      threshold: 0.65, // High threshold implies "mostly centered"
-      rootMargin: "0px 0px -100px 0px" // Adjust for navbar/bottom offset
+      threshold: 0.4, // Lower threshold for easier activation on mobile
+      rootMargin: "0px" // Remove negative margin to capture entry earlier
     });
 
     // Observe only the currently visible projects
@@ -80,8 +85,8 @@ const Portfolio: React.FC = () => {
                 data-id={project.id}
                 tabIndex={0}
                 className={`group relative rounded-xl overflow-hidden bg-slate-900 border transition-all duration-500 focus:outline-none ${isActive
-                    ? 'border-neon-cyan/50 shadow-[0_0_30px_rgba(6,182,212,0.15)]'
-                    : 'border-white/5 hover:border-neon-cyan/50 focus-within:border-neon-cyan/50'
+                  ? 'border-neon-cyan/50 shadow-[0_0_30px_rgba(6,182,212,0.15)]'
+                  : 'border-white/5 hover:border-neon-cyan/50 focus-within:border-neon-cyan/50'
                   }`}
               >
                 {/* Image Container */}
@@ -89,30 +94,30 @@ const Portfolio: React.FC = () => {
                   {project.link ? (
                     <a href={project.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full focus:outline-none">
                       <div className={`absolute inset-0 transition-colors duration-500 z-10 w-full h-full ${isActive
-                          ? 'bg-slate-900/20'
-                          : 'bg-slate-900/50 group-hover:bg-slate-900/20 group-focus-within:bg-slate-900/20'
+                        ? 'bg-slate-900/20'
+                        : 'bg-slate-900/50 group-hover:bg-slate-900/20 group-focus-within:bg-slate-900/20'
                         }`}></div>
                       <img
                         src={project.imageUrl}
                         alt={project.title}
                         className={`w-full h-full object-cover transition-transform duration-700 ease-in-out ${isActive
-                            ? 'scale-110 grayscale-0'
-                            : 'grayscale group-hover:scale-110 group-focus-within:scale-110 group-hover:grayscale-0 group-focus-within:grayscale-0'
+                          ? 'scale-110 grayscale-0'
+                          : 'grayscale group-hover:scale-110 group-focus-within:scale-110 group-hover:grayscale-0 group-focus-within:grayscale-0'
                           }`}
                       />
                     </a>
                   ) : (
                     <>
                       <div className={`absolute inset-0 transition-colors duration-500 z-10 ${isActive
-                          ? 'bg-slate-900/20'
-                          : 'bg-slate-900/50 group-hover:bg-slate-900/20 group-focus-within:bg-slate-900/20'
+                        ? 'bg-slate-900/20'
+                        : 'bg-slate-900/50 group-hover:bg-slate-900/20 group-focus-within:bg-slate-900/20'
                         }`}></div>
                       <img
                         src={project.imageUrl}
                         alt={project.title}
                         className={`w-full h-full object-cover transition-transform duration-700 ease-in-out ${isActive
-                            ? 'scale-110 grayscale-0'
-                            : 'grayscale group-hover:scale-110 group-focus-within:scale-110 group-hover:grayscale-0 group-focus-within:grayscale-0'
+                          ? 'scale-110 grayscale-0'
+                          : 'grayscale group-hover:scale-110 group-focus-within:scale-110 group-hover:grayscale-0 group-focus-within:grayscale-0'
                           }`}
                       />
                     </>
@@ -132,8 +137,8 @@ const Portfolio: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`absolute top-0 right-8 -translate-y-1/2 w-12 h-12 bg-neon-cyan text-void rounded-full flex items-center justify-center transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.6)] z-20 cursor-pointer hover:scale-110 focus:outline-none ${isActive
-                          ? 'opacity-100 translate-y-[-50%]'
-                          : 'opacity-0 translate-y-4 group-hover:opacity-100 group-focus-within:opacity-100 group-hover:translate-y-[-50%] group-focus-within:translate-y-[-50%]'
+                        ? 'opacity-100 translate-y-[-50%]'
+                        : 'opacity-0 translate-y-4 group-hover:opacity-100 group-focus-within:opacity-100 group-hover:translate-y-[-50%] group-focus-within:translate-y-[-50%]'
                         }`}
                     >
                       <ExternalLink className="w-5 h-5" />
@@ -141,8 +146,8 @@ const Portfolio: React.FC = () => {
                   )}
 
                   <h3 className={`text-2xl font-display font-bold mb-2 transition-colors ${isActive
-                      ? 'text-neon-cyan'
-                      : 'text-white group-hover:text-neon-cyan group-focus-within:text-neon-cyan'
+                    ? 'text-neon-cyan'
+                    : 'text-white group-hover:text-neon-cyan group-focus-within:text-neon-cyan'
                     }`}>
                     {project.title}
                   </h3>
