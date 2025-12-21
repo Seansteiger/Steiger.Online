@@ -20,22 +20,22 @@ const Portfolio: React.FC = () => {
 
     // Initialize IntersectionObserver to track scroll position
     observerRef.current = new IntersectionObserver((entries) => {
-      // Check for hover capability to distinguish Desktop vs Mobile behavior
-      const isHoverable = window.matchMedia('(hover: hover)').matches;
+      // Use width-based check for Mobile (Screen < 768px)
+      // This ensures mobile behavior triggers even if the device falsely reports hover capability
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-      // On Desktop (hoverable), we purely rely on CSS hover effects.
-      // We explicitly DO NOT set activeId via scroll, to avoid "stuck" lit tiles.
-      if (isHoverable) {
-        setActiveId(null);
+      // On Desktop (Not Mobile), we rely purely on CSS hover effects
+      if (!isMobile) {
+        if (activeId !== null) setActiveId(null);
         return;
       }
 
       entries.forEach((entry) => {
-        // Mobile Logic: Imitate the "working before" state
         if (entry.isIntersecting) {
           setActiveId(entry.target.getAttribute('data-id'));
         } else {
-          // Clear active state when leaving view to keep focus dynamic
+          // Optional: clear active ID if we want them to dim when leaving the center
+          // For now, let's keep the logic that clears it to ensure only the center one is lit
           const targetId = entry.target.getAttribute('data-id');
           if (targetId) {
             setActiveId(prev => (prev === targetId ? null : prev));
@@ -43,10 +43,8 @@ const Portfolio: React.FC = () => {
         }
       });
     }, {
-      // Restore original working values
-      threshold: 0.65,
-      // Adjust for navbar/bottom offset as in original code
-      rootMargin: "0px 0px -100px 0px"
+      threshold: 0.5,
+      rootMargin: "-10% 0px -10% 0px"
     });
 
     // Observe only the currently visible projects
