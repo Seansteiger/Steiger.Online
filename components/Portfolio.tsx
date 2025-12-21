@@ -20,22 +20,11 @@ const Portfolio: React.FC = () => {
 
     // Initialize IntersectionObserver to track scroll position
     observerRef.current = new IntersectionObserver((entries) => {
-      // Use width-based check for Mobile (Screen < 768px)
-      // This ensures mobile behavior triggers even if the device falsely reports hover capability
-      const isMobile = window.matchMedia('(max-width: 768px)').matches;
-
-      // On Desktop (Not Mobile), we rely purely on CSS hover effects
-      if (!isMobile) {
-        if (activeId !== null) setActiveId(null);
-        return;
-      }
-
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setActiveId(entry.target.getAttribute('data-id'));
         } else {
-          // Optional: clear active ID if we want them to dim when leaving the center
-          // For now, let's keep the logic that clears it to ensure only the center one is lit
+          // Clear active ID when it leaves the focus area (optional, but keeps it distinct)
           const targetId = entry.target.getAttribute('data-id');
           if (targetId) {
             setActiveId(prev => (prev === targetId ? null : prev));
@@ -43,8 +32,9 @@ const Portfolio: React.FC = () => {
         }
       });
     }, {
-      threshold: 0.5,
-      rootMargin: "-10% 0px -10% 0px"
+      // Use the config that works in Services section (and worked previously here)
+      threshold: 0.65,
+      rootMargin: "0px 0px -100px 0px"
     });
 
     // Observe only the currently visible projects
