@@ -15,8 +15,6 @@ const Portfolio: React.FC = () => {
     if (observerRef.current) {
       observerRef.current.disconnect();
     }
-    // Clear cardsRef.current to ensure it only holds refs for visible projects
-    cardsRef.current = [];
 
     // Initialize IntersectionObserver to track scroll position
     observerRef.current = new IntersectionObserver((entries) => {
