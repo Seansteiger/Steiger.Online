@@ -20,26 +20,28 @@ const Portfolio: React.FC = () => {
 
     // Initialize IntersectionObserver to track scroll position
     observerRef.current = new IntersectionObserver((entries) => {
-      // DEBUG: User requested to disable JS-based activation to test CSS-only behavior
+      // Use width-based check for Mobile (Screen < 768px)
+      // This ensures mobile behavior triggers even if the device falsely reports hover capability
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-      // Ensure no active ID sticks so CSS hover works cleanly
-      if (activeId !== null) {
-        setActiveId(null);
+      // On Desktop (Not Mobile), we rely purely on CSS hover effects
+      if (!isMobile) {
+        if (activeId !== null) setActiveId(null);
+        return;
       }
 
-      // Disabled scroll logic per user request
-      /*
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setActiveId(entry.target.getAttribute('data-id'));
         } else {
-           const targetId = entry.target.getAttribute('data-id');
-           if (targetId) {
-             setActiveId(prev => (prev === targetId ? null : prev));
-           }
+          // Optional: clear active ID if we want them to dim when leaving the center
+          // For now, let's keep the logic that clears it to ensure only the center one is lit
+          const targetId = entry.target.getAttribute('data-id');
+          if (targetId) {
+            setActiveId(prev => (prev === targetId ? null : prev));
+          }
         }
       });
-      */
     }, {
       threshold: 0.5,
       rootMargin: "-10% 0px -10% 0px"
@@ -84,7 +86,7 @@ const Portfolio: React.FC = () => {
                 tabIndex={0}
                 className={`group relative rounded-xl overflow-hidden bg-slate-900 border transition-all duration-500 focus:outline-none ${isActive
                   ? 'border-neon-cyan/50 shadow-[0_0_30px_rgba(6,182,212,0.15)]'
-                  : 'border-white/5 hover:border-neon-cyan/50 focus-within:border-neon-cyan/50'
+                  : 'border-white/5 md:hover:border-neon-cyan/50 md:focus-within:border-neon-cyan/50'
                   }`}
               >
                 {/* Image Container */}
@@ -93,14 +95,14 @@ const Portfolio: React.FC = () => {
                     <a href={project.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full focus:outline-none">
                       <div className={`absolute inset-0 transition-colors duration-500 z-10 w-full h-full ${isActive
                         ? 'bg-slate-900/20'
-                        : 'bg-slate-900/50 group-hover:bg-slate-900/20 group-focus-within:bg-slate-900/20'
+                        : 'bg-slate-900/50 md:group-hover:bg-slate-900/20 md:group-focus-within:bg-slate-900/20'
                         }`}></div>
                       <img
                         src={project.imageUrl}
                         alt={project.title}
                         className={`w-full h-full object-cover transition-transform duration-700 ease-in-out ${isActive
                           ? 'scale-110 grayscale-0'
-                          : 'grayscale group-hover:scale-110 group-focus-within:scale-110 group-hover:grayscale-0 group-focus-within:grayscale-0'
+                          : 'grayscale md:group-hover:scale-110 md:group-focus-within:scale-110 md:group-hover:grayscale-0 md:group-focus-within:grayscale-0'
                           }`}
                       />
                     </a>
@@ -108,14 +110,14 @@ const Portfolio: React.FC = () => {
                     <>
                       <div className={`absolute inset-0 transition-colors duration-500 z-10 ${isActive
                         ? 'bg-slate-900/20'
-                        : 'bg-slate-900/50 group-hover:bg-slate-900/20 group-focus-within:bg-slate-900/20'
+                        : 'bg-slate-900/50 md:group-hover:bg-slate-900/20 md:group-focus-within:bg-slate-900/20'
                         }`}></div>
                       <img
                         src={project.imageUrl}
                         alt={project.title}
                         className={`w-full h-full object-cover transition-transform duration-700 ease-in-out ${isActive
                           ? 'scale-110 grayscale-0'
-                          : 'grayscale group-hover:scale-110 group-focus-within:scale-110 group-hover:grayscale-0 group-focus-within:grayscale-0'
+                          : 'grayscale md:group-hover:scale-110 md:group-focus-within:scale-110 md:group-hover:grayscale-0 md:group-focus-within:grayscale-0'
                           }`}
                       />
                     </>
@@ -136,7 +138,7 @@ const Portfolio: React.FC = () => {
                       rel="noopener noreferrer"
                       className={`absolute top-0 right-8 -translate-y-1/2 w-12 h-12 bg-neon-cyan text-void rounded-full flex items-center justify-center transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.6)] z-20 cursor-pointer hover:scale-110 focus:outline-none ${isActive
                         ? 'opacity-100 translate-y-[-50%]'
-                        : 'opacity-0 translate-y-4 group-hover:opacity-100 group-focus-within:opacity-100 group-hover:translate-y-[-50%] group-focus-within:translate-y-[-50%]'
+                        : 'opacity-0 translate-y-4 md:group-hover:opacity-100 md:group-focus-within:opacity-100 md:group-hover:translate-y-[-50%] md:group-focus-within:translate-y-[-50%]'
                         }`}
                     >
                       <ExternalLink className="w-5 h-5" />
@@ -145,7 +147,7 @@ const Portfolio: React.FC = () => {
 
                   <h3 className={`text-2xl font-display font-bold mb-2 transition-colors ${isActive
                     ? 'text-neon-cyan'
-                    : 'text-white group-hover:text-neon-cyan group-focus-within:text-neon-cyan'
+                    : 'text-white md:group-hover:text-neon-cyan md:group-focus-within:text-neon-cyan'
                     }`}>
                     {project.title}
                   </h3>
