@@ -52,3 +52,20 @@ A comprehensive pass on `Portfolio.tsx` corrected all spaced class names.
 To ensure variables work cleanly across local dev (`.env.local`) and GitHub Pages (Static):
 1.  **Vite Define:** `vite.config.ts` explicitly defines `process.env.GEMINI_API_KEY` to support the fallback logic.
 2.  **Type Defs:** `vite-env.d.ts` was added to resolve TypeScript errors with `import.meta.env`.
+
+## React Component Logic
+
+### Ref Persistence & UseEffect
+**Issue:**
+IntersectionObserver functionality (or other DOM-dependent logic) failing silently despite correct setup.
+
+**Cause:**
+Clearing the ref array (e.g., `cardsRef.current = []`) inside the `useEffect` hook.
+`useEffect` runs **after** the render cycle. If the refs were assigned during render (via `ref={el => ...}`), clearing the array inside `useEffect` wipes out those references immediately before the logic tries to use them.
+
+**Fix:**
+Do **not** clear refs inside `useEffect`. If cleanup is needed, do it in the cleanup function (return) or handle it conditionally during the render loop itself.
+```javascript
+// DO NOT DO THIS inside useEffect:
+// cardsRef.current = []; 
+```
