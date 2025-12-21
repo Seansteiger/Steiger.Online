@@ -50,7 +50,7 @@ const MouseFollower: React.FC = () => {
 
   return (
     <div
-      className="fixed pointer-events-none z-50 transition-all duration-300 ease-out mix-blend-screen"
+      className="hidden md:block fixed pointer-events-none z-50 transition-all duration-300 ease-out mix-blend-screen"
       style={{
         left: position.x,
         top: position.y,
