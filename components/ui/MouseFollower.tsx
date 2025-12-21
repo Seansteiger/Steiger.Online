@@ -5,6 +5,24 @@ const MouseFollower: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
+    // Check for mobile breakpoint
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    if (isMobile) {
+      // On mobile, lock to center of screen
+      setPosition({
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2
+      });
+      // Optional: Add resize listener to keep it centered if orientation changes
+      const handleResize = () => {
+        setPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+      };
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+
+    // DESKTOP LOGIC (Mouse following)
     const handleMouseMove = (e: MouseEvent) => {
       // Use requestAnimationFrame for smoother performance
       requestAnimationFrame(() => {
