@@ -18,6 +18,15 @@ const Portfolio: React.FC = () => {
 
     // Initialize IntersectionObserver to track scroll position
     observerRef.current = new IntersectionObserver((entries) => {
+      // Check for mobile breakpoint (768px)
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+      // On Desktop, do NOT use JS scroll activation (let CSS hover handle it)
+      if (!isMobile) {
+        if (activeId !== null) setActiveId(null);
+        return;
+      }
+
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setActiveId(entry.target.getAttribute('data-id'));

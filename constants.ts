@@ -29,6 +29,15 @@ export const PROJECTS: Project[] = [
     link: 'https://scented-tau.vercel.app'
   },
   {
+    id: 'portfolio',
+    title: 'Sean Steiger Portfolio',
+    category: 'Digital Portfolio',
+    description: 'A showcase of my journey as a digital architect. This very site, demonstrating advanced React patterns and motion design.',
+    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
+    tech: ['React', 'Vite', 'Tailwind', 'AI'],
+    link: 'https://Seansteiger.github.io/sean-steiger-portfolio/'
+  },
+  {
     id: '4',
     title: 'Sizana Projects',
     category: 'Civil Engineering',
