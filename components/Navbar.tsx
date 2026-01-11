@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X, Code2 } from 'lucide-react';
 import { Section } from '../types';
 
@@ -10,28 +10,13 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // Handle transparent/glass background
-      setIsScrolled(currentScrollY > 50);
-
-      // Handle show/hide header
-      // Hide when scrolling down, show when scrolling up
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-
-      lastScrollY.current = currentScrollY;
+      setIsScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -45,8 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 transform ${isVisible ? 'translate-y-0' : '-translate-y-full'
-        } ${isScrolled ? 'glass-panel py-3' : 'bg-transparent py-6'
+      className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 ${isScrolled ? 'glass-panel py-3' : 'bg-transparent py-6'
         }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
