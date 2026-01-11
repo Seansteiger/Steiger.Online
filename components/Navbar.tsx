@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Code2 } from 'lucide-react';
 import { Section } from '../types';
 
@@ -11,7 +11,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,18 +19,18 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
 
       setIsScrolled(currentScrollY > 50);
 
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
         setIsVisible(false); // Hide on scroll down
       } else {
         setIsVisible(true);  // Show on scroll up
       }
 
-      setLastScrollY(currentScrollY);
+      lastScrollY.current = currentScrollY;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   const navLinks = [
     { id: Section.HOME, label: 'Home' },
