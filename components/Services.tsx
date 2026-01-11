@@ -17,7 +17,7 @@ const Services: React.FC = () => {
   useEffect(() => {
     observerRef.current = new IntersectionObserver((entries) => {
       // Check for mobile breakpoint (768px)
-      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      const isMobile = typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(max-width: 768px)').matches : false;
 
       // On Desktop, do NOT use JS scroll activation (let CSS hover handle it)
       if (!isMobile) {
