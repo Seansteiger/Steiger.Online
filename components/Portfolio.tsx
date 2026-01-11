@@ -8,7 +8,7 @@ const Portfolio: React.FC = () => {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const [isExpanded, setIsExpanded] = useState(false);
-  const visibleProjects = isExpanded ? PROJECTS : PROJECTS.slice(0, 4);
+  const visibleProjects = isExpanded ? PROJECTS : PROJECTS.slice(0, 3);
 
   useEffect(() => {
     // Disconnect previous observer if it exists
@@ -71,7 +71,7 @@ const Portfolio: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {visibleProjects.map((project, index) => {
             const isActive = activeId === project.id;
 
@@ -135,7 +135,7 @@ const Portfolio: React.FC = () => {
                       rel="noopener noreferrer"
                       className={`absolute top-0 right-8 -translate-y-1/2 w-12 h-12 bg-neon-cyan text-void rounded-full flex items-center justify-center transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.6)] z-20 cursor-pointer hover:scale-110 focus:outline-none ${isActive
                         ? 'opacity-100 translate-y-[-50%]'
-                        : 'opacity-0 translate-y-4 group-hover:opacity-100 group-focus-within:opacity-100 group-hover:translate-y-[-50%] group-focus-within:translate-y-[-50%]'
+                        : 'opacity-0 translate-y-4 group-hover:opacity-100 group-focus-within:opacity-100 group-hover:translate-y-[-50%]'
                         }`}
                     >
                       <ExternalLink className="w-5 h-5" />
@@ -167,7 +167,7 @@ const Portfolio: React.FC = () => {
         </div>
 
         <div className="mt-16 text-center">
-          {PROJECTS.length > 4 && (
+          {PROJECTS.length > 3 && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
               className="text-neon-cyan font-bold font-display uppercase tracking-widest text-sm hover:text-white transition-colors border-b border-neon-cyan pb-1"

@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Mail, MapPin, Phone, Send } from 'lucide-react';
 
-const Contact: React.FC = () => {
+interface ContactProps {
+  selectedPlan: string;
+}
+
+const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -9,6 +13,12 @@ const Contact: React.FC = () => {
     objective: 'New Web Platform',
     details: ''
   });
+
+  useEffect(() => {
+    if (selectedPlan) {
+      setFormData(prev => ({ ...prev, objective: selectedPlan }));
+    }
+  }, [selectedPlan]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -19,9 +29,8 @@ const Contact: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = `JSH Inquiry: ${formData.objective}`;
-    const body = `Name: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0AMobile: ${formData.mobile}%0D%0AObjective: ${formData.objective}%0D%0ADetails: ${formData.details}`;
-    window.location.href = `mailto:onlinesteiger@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+    const message = `*New Inquiry from Website*%0A%0A*Name:* ${formData.name}%0A*Email:* ${formData.email}%0A*Mobile:* ${formData.mobile}%0A*Objective:* ${formData.objective}%0A*Details:* ${formData.details}`;
+    window.open(`https://wa.me/27699751347?text=${message}`, '_blank');
   };
 
   return (
@@ -50,7 +59,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-white font-bold mb-1">HQ Coordinates</h4>
-                  <p className="text-slate-400 text-sm">Midrand, Johannesburg, SA (GMT+2)</p>
+                  <p className="text-slate-400 text-sm">Benoni, Johannesburg, SA (GMT+2)</p>
                 </div>
               </div>
 
@@ -70,7 +79,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-white font-bold mb-1">Direct Line</h4>
-                  <a href="tel:+27623657931" className="text-slate-400 text-sm hover:text-neon-pink transition-colors">+27 62 365 7931</a>
+                  <a href="tel:+27699751347" className="text-slate-400 text-sm hover:text-neon-pink transition-colors">+27 69 975 1347</a>
                 </div>
               </div>
             </div>
@@ -126,6 +135,11 @@ const Contact: React.FC = () => {
                 className="w-full bg-black/40 border border-white/10 rounded-lg p-3 text-white focus:border-neon-pink focus:outline-none transition-colors appearance-none"
               >
                 <option>New Web Platform</option>
+                <option>Landing Page</option>
+                <option>Standard Business</option>
+                <option>E-Commerce (Start)</option>
+                <option>E-Commerce (Pro)</option>
+                <option>Custom Web App</option>
                 <option>Mobile Application</option>
                 <option>AI Integration</option>
                 <option>UI/UX Overhaul</option>

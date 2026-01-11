@@ -20,15 +20,6 @@ export const PROJECTS: Project[] = [
     link: 'https://seansteiger.github.io/Clarke-Student-Accom-Live/'
   },
   {
-    id: '3',
-    title: 'Scented',
-    category: 'Luxury Fragrances',
-    description: 'A minimalist, high-end e-commerce experience for exclusive fragrances. Visual storytelling meets sensory design.',
-    imageUrl: 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?q=80&w=2070&auto=format&fit=crop',
-    tech: ['Vercel', 'Next.js', 'Stripe', 'TypeScript'],
-    link: 'https://scented-tau.vercel.app'
-  },
-  {
     id: 'portfolio',
     title: 'Sean Steiger Portfolio',
     category: 'Digital Portfolio',
@@ -36,6 +27,15 @@ export const PROJECTS: Project[] = [
     imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
     tech: ['React', 'Vite', 'Tailwind', 'AI'],
     link: 'https://Seansteiger.github.io/sean-steiger-portfolio/'
+  },
+  {
+    id: '3',
+    title: 'Scented',
+    category: 'Luxury Fragrances',
+    description: 'A minimalist, high-end e-commerce experience for exclusive fragrances. Visual storytelling meets sensory design.',
+    imageUrl: 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?q=80&w=2070&auto=format&fit=crop',
+    tech: ['Vercel', 'Next.js', 'Stripe', 'TypeScript'],
+    link: 'https://scented-tau.vercel.app'
   },
   {
     id: '4',

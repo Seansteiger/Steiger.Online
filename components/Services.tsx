@@ -16,6 +16,15 @@ const Services: React.FC = () => {
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver((entries) => {
+      // Check for mobile breakpoint (768px)
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+      // On Desktop, do NOT use JS scroll activation (let CSS hover handle it)
+      if (!isMobile) {
+        if (activeId !== null) setActiveId(null);
+        return;
+      }
+
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setActiveId(entry.target.getAttribute('data-id'));
@@ -63,8 +72,8 @@ const Services: React.FC = () => {
 
                 <div className="relative z-10">
                   <div className={`w-16 h-16 rounded-lg bg-void border flex items-center justify-center text-neon-purple mb-6 transition-all duration-300 shadow-[0_0_20px_rgba(139,92,246,0.15)] ${isActive
-                      ? 'scale-110 border-neon-purple/50'
-                      : 'border-white/10 group-hover:scale-110 group-hover:border-neon-purple/50'
+                    ? 'scale-110 border-neon-purple/50'
+                    : 'border-white/10 group-hover:scale-110 group-hover:border-neon-purple/50'
                     }`}>
                     {iconMap[service.icon]}
                   </div>

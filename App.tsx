@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
+import Pricing from './components/Pricing';
 import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
 import AIAssistant from './components/AIAssistant';
@@ -11,16 +12,18 @@ import { Section } from './types';
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<Section>(Section.HOME);
+  const [selectedPlan, setSelectedPlan] = useState<string>('');
 
   // Scroll Spy to detect active section
   useEffect(() => {
     const handleScroll = () => {
       // Offset triggers change slightly before the section hits the top of the screen
       const scrollPosition = window.scrollY + window.innerHeight * 0.4;
-      
+
       const sections = [
         { id: Section.HOME, element: document.getElementById(Section.HOME) },
         { id: Section.SERVICES, element: document.getElementById(Section.SERVICES) },
+        { id: Section.PRICING, element: document.getElementById(Section.PRICING) },
         { id: Section.PORTFOLIO, element: document.getElementById(Section.PORTFOLIO) },
         { id: Section.CONTACT, element: document.getElementById(Section.CONTACT) },
       ];
@@ -52,12 +55,13 @@ const App: React.FC = () => {
       <MouseFollower />
       <DynamicBackground activeSection={activeSection} />
       <Navbar activeSection={activeSection} scrollToSection={scrollToSection} />
-      
+
       <main className="relative z-10">
         <Hero scrollToSection={scrollToSection} />
         <Services />
+        <Pricing onSelectPlan={setSelectedPlan} />
         <Portfolio />
-        <Contact />
+        <Contact selectedPlan={selectedPlan} />
       </main>
 
       <AIAssistant />
