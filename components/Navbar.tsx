@@ -34,10 +34,10 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
 
   const navLinks = [
     { id: Section.HOME, label: 'Home' },
-    { id: Section.SERVICES, label: 'Capabilities' },
+    { id: Section.SERVICES, label: 'Services' },
     { id: Section.PRICING, label: 'Pricing' },
-    { id: Section.PORTFOLIO, label: 'Showcase' },
-    { id: Section.CONTACT, label: 'Initiate' },
+    { id: Section.PORTFOLIO, label: 'Our Work' },
+    { id: Section.CONTACT, label: 'Contact Us' },
   ];
 
   return (

@@ -18,6 +18,21 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
     if (selectedPlan) {
       setFormData(prev => ({ ...prev, objective: selectedPlan }));
     }
+
+    const handlePrefill = (e: CustomEvent) => {
+      const { plan, details } = e.detail;
+      setFormData(prev => ({
+        ...prev,
+        objective: plan || prev.objective,
+        details: details || prev.details
+      }));
+
+      // Smooth scroll to contact section
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    window.addEventListener('trigger-contact-prefill' as any, handlePrefill as any);
+    return () => window.removeEventListener('trigger-contact-prefill' as any, handlePrefill as any);
   }, [selectedPlan]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -43,13 +58,12 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
 
           <div>
             <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-              INITIATE <span className="text-neon-pink">SEQUENCE</span>
+              GET IN <span className="text-neon-pink">TOUCH</span>
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-neon-pink to-transparent mb-8"></div>
 
             <p className="text-slate-400 text-lg mb-12 leading-relaxed">
-              Ready to disrupt your industry? We are accepting new ambitious projects.
-              Let's engineer the future of your digital presence together.
+              Ready to grow your business online? We are accepting new projects. Let's build your digital presence together.
             </p>
 
             <div className="space-y-6">
@@ -58,7 +72,7 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold mb-1">HQ Coordinates</h4>
+                  <h4 className="text-white font-bold mb-1">Address</h4>
                   <p className="text-slate-400 text-sm">Benoni, Johannesburg, SA (GMT+2)</p>
                 </div>
               </div>
@@ -68,7 +82,7 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold mb-1">Encrypted Channel</h4>
+                  <h4 className="text-white font-bold mb-1">Email</h4>
                   <a href="mailto:onlinesteiger@gmail.com" className="text-slate-400 text-sm hover:text-neon-pink transition-colors">onlinesteiger@gmail.com</a>
                 </div>
               </div>
@@ -136,12 +150,11 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
               >
                 <option>New Web Platform</option>
                 <option>Landing Page</option>
-                <option>Standard Business</option>
-                <option>E-Commerce (Start)</option>
-                <option>E-Commerce (Pro)</option>
+                <option>Business Website</option>
+                <option>E-Commerce</option>
+                <option>Enterprise E-Commerce</option>
                 <option>Custom Web App</option>
-                <option>Mobile Application</option>
-                <option>AI Integration</option>
+                <option>Rapid Development</option>
                 <option>UI/UX Overhaul</option>
               </select>
             </div>
@@ -160,7 +173,7 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
             </div>
 
             <button type="submit" className="w-full py-4 bg-neon-pink text-white font-bold uppercase tracking-wider rounded-lg hover:bg-neon-pink/90 hover:shadow-[0_0_30px_rgba(236,72,153,0.4)] transition-all duration-300 flex items-center justify-center gap-2">
-              <Send className="w-4 h-4" /> Transmit Data
+              <Send className="w-4 h-4" /> Send Message
             </button>
 
           </form>
@@ -168,7 +181,7 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
         </div>
 
         <div className="mt-20 pt-8 border-t border-white/5 text-center text-slate-600 text-xs">
-          <p>© {new Date().getFullYear()} JSH Agency. All Systems Operational.</p>
+          <p>© 2025 Steiger.Online. All Systems Operational.</p>
         </div>
       </div>
     </section>

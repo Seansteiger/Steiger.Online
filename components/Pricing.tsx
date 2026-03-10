@@ -7,79 +7,50 @@ const PRICING_TIERS = [
         name: 'Landing Page',
         icon: Globe,
         description: 'Perfect for campaigns, personal profiles, or simple product launches.',
-        devPrice: 'R1,500 – R3,500',
+        devPrice: 'R1,200 – R3,500',
         hostPrice: 'R149',
+        aiPrice: '+ R2,000 (FAQ & Lead Capture)',
         features: [
-            'Single Scrolling Page',
-            'Contact Form Integration',
-            'WhatsApp Chat Button',
-            'Basic SEO (Metadata)',
-            'Fast Loading Speed',
-            'Mobile Responsive'
+            'High-Conversion Design',
+            'WhatsApp & Lead Forms',
+            'Advanced SEO Optimization',
+            'Blazing Fast Performance',
+            'Hosting & Domain Setup',
+            'Mobile First Architecture'
         ]
     },
     {
         id: 'business',
-        name: 'Standard Business',
+        name: 'Business Website',
         icon: Server,
         description: 'The digital brochure for your business. Establish credibility and showcase services.',
         devPrice: 'R3,500 – R8,500',
         hostPrice: 'R299',
+        aiPrice: '+ R3,000 (Lead Gen & Booking)',
         features: [
-            '5–10 Custom Pages',
+            '3+ Premium Pages',
             'CMS Integration (WordPress)',
-            'Google Maps & Social Media',
-            'Standard SEO Setup',
-            'Blog / News Section',
-            'Analytics Integration'
+            'Advanced SEO Optimization',
+            'Google Analytics & Heatmaps',
+            'Social Media Integration',
+            '1 Month Free Support'
         ]
     },
     {
-        id: 'ecommerce-small',
-        name: 'E-Commerce (Start)',
+        id: 'ecommerce',
+        name: 'E-Commerce',
         icon: ShoppingBag,
-        description: 'Start selling online with a robust, easy-to-manage store.',
-        devPrice: 'R8,000 – R15,000',
-        hostPrice: 'R499',
+        description: 'A complete digital storefront. Sell unlimited products with automated systems.',
+        devPrice: 'R8,500+',
+        hostPrice: 'R299+',
+        aiPrice: '+ R4,500 (Order & Product Queries)',
         features: [
-            'Up to 50 Products',
-            'Payment Gateway (PayFast)',
-            'Shopping Cart & Checkout',
-            'Basic Inventory Management',
-            'Admin Panel Access',
-            'Product Search & Filter'
-        ]
-    },
-    {
-        id: 'ecommerce-adv',
-        name: 'E-Commerce (Pro)',
-        icon: Rocket,
-        description: 'Scale your operations with advanced features and automation.',
-        devPrice: 'R20,000 – R60,000+',
-        hostPrice: 'R699+',
-        features: [
-            'Unlimited Products',
-            'Advanced Filtering & Search',
-            'User Dashboards & Login',
-            'Accounting Integration',
-            'Advanced SEO (Rich Snippets)',
+            'Unlimited Products & Categories',
+            'Secure Payments (PayFast/Yoco)',
+            'Admin Dashboard & Inventory',
+            'Advanced SEO Optimization',
+            'Customer Accounts & Tracking',
             'Abandoned Cart Recovery'
-        ]
-    },
-    {
-        id: 'custom',
-        name: 'Custom Web App',
-        icon: Smartphone,
-        description: 'Bespoke solutions for complex business logic and interactions.',
-        devPrice: 'R25,000 – R100,000+',
-        hostPrice: 'R999+',
-        features: [
-            'Custom Backend (DB/Auth)',
-            'Complex User Logic',
-            'Real-time Data Updates',
-            'Third-party API Integrations',
-            'Admin Dashboards',
-            'Scalable Infrastructure'
         ]
     }
 ];
@@ -142,17 +113,15 @@ const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {PRICING_TIERS.map((tier, index) => {
                         const isActive = activeId === tier.id;
-                        const isCustom = tier.id === 'custom';
 
                         return (
                             <div
                                 key={tier.id}
                                 ref={el => cardsRef.current[index] = el}
                                 data-id={tier.id}
-                                className={`group relative p-8 rounded-xl border transition-all duration-500 overflow-hidden ${isCustom ? 'md:col-span-2 lg:col-span-1' : ''
-                                    } ${isActive
-                                        ? 'border-neon-cyan/50 bg-slate-900/40 shadow-[0_0_30px_rgba(6,182,212,0.1)] -translate-y-2'
-                                        : 'border-white/5 bg-slate-900/20 hover:border-neon-cyan/30 hover:-translate-y-2'
+                                className={`group relative p-8 rounded-xl border transition-all duration-500 overflow-hidden flex flex-col ${isActive
+                                    ? 'border-neon-cyan/50 bg-slate-900/40 shadow-[0_0_30px_rgba(6,182,212,0.1)] -translate-y-2'
+                                    : 'border-white/5 bg-slate-900/20 hover:border-neon-cyan/30 hover:-translate-y-2'
                                     }`}
                             >
                                 {/* Glow Effect */}
@@ -164,28 +133,35 @@ const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
                                     <div className="flex items-center gap-4 mb-6">
                                         <div className={`p-3 rounded-lg bg-void border transition-colors duration-300 ${isActive ? 'border-neon-cyan text-neon-cyan' : 'border-white/10 text-slate-400 group-hover:border-neon-cyan/50 group-hover:text-neon-cyan'
                                             }`}>
-                                            <tier.icon className="w-6 h-6" />
+                                            <tier.icon className="w-8 h-8" />
                                         </div>
                                         <div>
-                                            <h3 className="text-xl font-bold font-display text-white">{tier.name}</h3>
-                                            <p className="text-xs text-slate-400 mt-1">{tier.description}</p>
+                                            <h3 className="text-2xl font-bold font-display text-white">{tier.name}</h3>
+                                            <p className="text-sm text-slate-400 mt-2 leading-relaxed">{tier.description}</p>
                                         </div>
                                     </div>
 
                                     {/* Pricing */}
-                                    <div className="my-6 space-y-3 pb-6 border-b border-white/10">
+                                    <div className="my-6 space-y-4 pb-8 border-b border-white/10">
                                         <div className="flex justify-between items-baseline">
-                                            <span className="text-slate-400 text-sm">Development</span>
-                                            <span className={`font-bold text-lg ${isActive ? 'text-neon-cyan' : 'text-white'}`}>
+                                            <span className="text-slate-400 text-sm">Base Website</span>
+                                            <span className={`font-bold text-xl ${isActive ? 'text-neon-cyan' : 'text-white'}`}>
                                                 {tier.devPrice}
                                             </span>
                                         </div>
-                                        <div className="flex justify-between items-baseline">
-                                            <span className="text-slate-400 text-sm">Hosting & Support</span>
-                                            <span className="text-white font-medium">
-                                                {tier.hostPrice} <span className="text-slate-500 text-xs">/mo</span>
+                                        {/* Hiding AI and Hosting Prices for now */}
+                                        {/* <div className="flex justify-between items-baseline">
+                                            <span className="text-slate-400 text-sm">AI Agent Add-on</span>
+                                            <span className="text-neon-pink text-sm font-bold">
+                                                {tier.aiPrice}
                                             </span>
                                         </div>
+                                        <div className="flex justify-between items-baseline pt-2">
+                                            <span className="text-slate-500 text-xs">Hosting</span>
+                                            <span className="text-slate-400 text-xs">
+                                                {tier.hostPrice} /mo
+                                            </span>
+                                        </div> */}
                                     </div>
 
                                     {/* Features */}
@@ -207,9 +183,9 @@ const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
                                                 onSelectPlan(tier.name);
                                                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                                             }}
-                                            className={`block w-full py-3 text-center rounded text-sm font-bold uppercase tracking-widest transition-all duration-300 ${isActive
-                                                ? 'bg-neon-cyan text-black hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]'
-                                                : 'bg-white/5 text-white hover:bg-neon-cyan hover:text-black'
+                                            className={`block w-full py-4 text-center rounded text-sm font-bold uppercase tracking-widest transition-all duration-300 ${isActive
+                                                ? 'bg-neon-cyan text-black shadow-[0_0_20px_rgba(6,182,212,0.6)]'
+                                                : 'bg-white/5 text-white border border-neon-cyan/30 hover:bg-neon-cyan hover:text-black hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]'
                                                 }`}
                                         >
                                             Select Plan

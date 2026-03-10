@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Globe, Layers, Smartphone, Cpu } from 'lucide-react';
+import { Globe, Layers, Zap, Cpu } from 'lucide-react';
 import { SERVICES } from '../constants';
 
 const iconMap: Record<string, React.ReactNode> = {
   'Globe': <Globe className="w-8 h-8" />,
   'Layers': <Layers className="w-8 h-8" />,
-  'Smartphone': <Smartphone className="w-8 h-8" />,
+  'Zap': <Zap className="w-8 h-8" />,
   'Cpu': <Cpu className="w-8 h-8" />,
 };
 
@@ -52,7 +52,7 @@ const Services: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="mb-16">
           <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-            CORE <span className="text-neon-purple">CAPABILITIES</span>
+            OUR <span className="text-neon-purple">SERVICES</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-neon-purple to-transparent"></div>
         </div>

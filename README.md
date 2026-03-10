@@ -1,8 +1,8 @@
-# JSH | Digital Architects
+# Steiger.Online | Digital Architects
 
 **Forging Digital Realities.**
 
-JSH is a premier South African web development agency specializing in high-performance, futuristic web experiences. This project is the official portfolio website built with React, Vite, and TailwindCSS (via CDN).
+Steiger.Online is a premier South African web development agency specializing in high-performance, futuristic web experiences. This project is the official portfolio website built with React, Vite, and TailwindCSS (via CDN).
 
 ## Features
 - **Futuristic Design**: Glassmorphism, neon accents, and dynamic animations.
@@ -44,7 +44,7 @@ This project is configured for automatic deployment to GitHub Pages using GitHub
 1. Go to your repository Settings > Pages
 2. Under "Source", select "GitHub Actions"
 3. The site will automatically deploy when you push to the `main` branch
-4. Your site will be available at: `https://seansteiger.github.io/JSH-Digital-Architects/`
+4. Your site will be available at: `https://seansteiger.github.io/Steiger.Online/`
 
 ### Manual Deployment
 To deploy manually:

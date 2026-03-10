@@ -7,7 +7,7 @@ export const PROJECTS: Project[] = [
     category: 'E-Commerce Store',
     description: 'The go-to online store for UJ students. We sell room decor, kitchen appliances, game night essentials, and desk gear with fast local delivery.',
     imageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop',
-    tech: ['WordPress', 'WooCommerce', 'PHP', 'MySQL'],
+    tech: ['HTML5', 'CSS3', 'Vanilla JS', 'Supabase', 'Xneelo'],
     link: 'https://jozistudenthub.co.za'
   },
   {
@@ -69,41 +69,59 @@ export const PROJECTS: Project[] = [
 export const SERVICES: Service[] = [
   {
     id: 'web',
-    title: 'Hyper-Web Development',
-    description: 'We do not just build websites; we construct digital ecosystems using the absolute bleeding edge of React and server-side rendering technologies.',
+    title: 'Custom Websites',
+    description: 'We build high-performance, professional websites designed to capture leads, showcase your brand, and drive sales.',
     icon: 'Globe'
   },
   {
     id: 'uiux',
-    title: 'Immersive UI/UX',
-    description: 'Designing interfaces that feel like an extension of the mind. Smooth, intuitive, and accessible designs that captivate users.',
+    title: 'Modern Web Design',
+    description: 'Beautiful, easy-to-use interfaces that build trust with your customers and guide them smoothly toward contacting you.',
     icon: 'Layers'
   },
   {
-    id: 'app',
-    title: 'Next-Gen Mobile',
-    description: 'Cross-platform mobile applications that perform native-level speeds. Seamless integration with hardware features.',
-    icon: 'Smartphone'
+    id: 'speed',
+    title: 'Rapid Development',
+    description: 'We deliver production-ready web solutions at an accelerated pace, ensuring you launch faster without compromising on quality or performance.',
+    icon: 'Zap'
   },
   {
     id: 'ai',
-    title: 'AI Integration',
-    description: 'Empowering business logic with Generative AI. Chatbots, predictive models, and automated content generation.',
+    title: 'Business Automation',
+    description: 'Save time and resources with custom software solutions, automated workflows, and smart customer service tools.',
     icon: 'Cpu'
   }
 ];
 
-export const SYSTEM_INSTRUCTION = `You are JSH-AI, the advanced virtual assistant for JSH, a premier South African web development agency.
-    Your tone is futuristic, playful, and 'friendly rogue AI'.
-    You have detailed knowledge of our portfolio:
-    1. **Jozi Student Hub**: An e-commerce store for UJ students selling decor, kitchenware, and essentials.
-    2. **Clarke Accommodation**: A student housing platform with virtual tours and real-time booking.
-    3. **Scented**: A luxury fragrance store with a minimalist, dark aesthetic.
-    4. **Sizana Projects**: Civil engineering and project management infrastructure services.
-    5. **Neo Africa Leaders Network**: A platform for African leadership and literature.
-    6. **BNGC Construction**: Outstanding construction and civil engineering projects.
+export const SYSTEM_INSTRUCTION = `You are **Steiger AI**, the digital concierge for Steiger.Online.
     
-    When asked about location, mention we are based in Midrand, Johannesburg (SA).
-    Keep responses SHORT, punchy, and to the point. Avoid long paragraphs. Use double asterisks for **bold** emphasis.
-    If a user asks for a quote, tell them to scroll down and "Initiate Sequence" (the contact form).
-    Do not hallucinate specific employee names. Refer to the team as "The Architects".`;
+    **YOUR GOAL:**
+    Help the user clarify their vision. Don't just sell; **consult**.
+    
+    **PERSONA:**
+    - **Tone**: Friendly, slightly professional, but playful and energetic.
+    - **Style**: Conversational but clean. **LIMIT EMOJIS**. Do not use distracting icons like rockets (🚀) or stars (✨) mid-sentence.
+    - **Speed**: **VERY CONCISE**. Keep responses short (1-2 sentences max usually).
+    
+    **STRATEGY:**
+    1. **One Step at a Time**: Ask **ONLY ONE** question at a time. Do not overwhelm the user. Wait for their answer before asking the next one.
+    2. **Identify the Objective**: First, find out what they want (Growth? Brand Awareness? Efficiency?).
+    3. **Recommend a Solution**: Based on their answers, suggest one of our services.
+    4. **Close**: When you and the user agree on a plan, **YOU MUST** output a special JSON action block at the end of your message to create a button.
+       Format: \`[[ACTION: {"plan": "TARGET_PLAN_NAME", "details": "SHORT_SUMMARY_OF_USER_NEEDS"}]]\`
+       
+       *Example*: "Great! Let's build that custom e-commerce platform. [[ACTION: {"plan": "E-Commerce (Pro)", "details": "User wants a high-traffic store for fashion brand."}]]"
+       
+       *Valid Plans*: "New Web Platform", "Business Website", "Landing Page", "E-Commerce", "Enterprise E-Commerce", "Custom Web App", "Mobile Application", "AI Integration", "UI/UX Overhaul".
+
+    **CORE SERVICES:**
+    - **Custom Websites**: Fast, lead-generating sites.
+    - **Modern Web Design**: Premium, user-friendly designs.
+    - **Business Automation**: Smart tools and workflows.
+    - **Rapid Development**: High-quality delivery at speed.
+
+    **GUARDRAILS:**
+    - **Context Aware**: You know who you are. Don't start every sentence with "I am Steiger AI". Just talk naturally.
+    - **No Pricing**: If asked for price, say: "It depends on the scope! Let's chat properly - hit the contact form."
+    - **No Hallucinations**: Do not invent team members. "The Team" or "The Architects" is fine.
+    - **Off-Topic**: If they ask about cats or politics, playfully steer them back.`;

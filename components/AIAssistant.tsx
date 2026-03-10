@@ -8,7 +8,7 @@ import { ChatMessage } from '../types';
 const AIAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: 'model', text: 'Greetings. I am JSH-AI. Ask me about our tech stack, services, or development philosophy.', timestamp: new Date() }
+    { role: 'model', text: 'Hello! 👋 I\'m here to help you build something amazing. Are you looking to upgrade your digital presence or start a new project?', timestamp: new Date() }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -31,11 +31,11 @@ const AIAssistant: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Use standard Vite env var, fallback to the hardcoded process for legacy support if needed, but prefer import.meta
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+      // Use standard Vite env var
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
       if (!apiKey) {
-        throw new Error("API Key not found");
+        throw new Error("API Key not found. Please add VITE_GEMINI_API_KEY to your .env file.");
       }
 
       const genAI = new GoogleGenerativeAI(apiKey);
@@ -84,7 +84,7 @@ const AIAssistant: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-6 right-6 md:bottom-2 md:right-6 z-50 flex flex-col items-end">
       {/* Backdrop Blur Overlay */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[-1]" onClick={() => setIsOpen(false)}></div>
@@ -98,7 +98,7 @@ const AIAssistant: React.FC = () => {
           <div className="p-4 border-b border-white/10 flex justify-between items-center bg-void/50">
             <div className="flex items-center gap-2">
               <Bot className="w-5 h-5 text-neon-cyan" />
-              <span className="font-display font-bold text-white">JSH-AI</span>
+              <span className="font-display font-bold text-white">Steiger AI</span>
               <span className="flex h-2 w-2 relative ml-1">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-cyan opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-neon-cyan"></span>
@@ -117,13 +117,44 @@ const AIAssistant: React.FC = () => {
                   ? 'bg-neon-cyan/20 text-white rounded-tr-none border border-neon-cyan/20'
                   : 'bg-white/5 text-slate-300 rounded-tl-none border border-white/5'
                   }`}>
-                  {/* Parse basic bold markdown */}
-                  {msg.text.split(/(\*\*.*?\*\*)/).map((part, i) => {
-                    if (part.startsWith('**') && part.endsWith('**')) {
-                      return <strong key={i} className="text-white font-bold">{part.slice(2, -2)}</strong>;
-                    }
-                    return <span key={i}>{part}</span>;
-                  })}
+                  {/* Parse basic bold markdown and Action Tokens */}
+                  {(() => {
+                    // split by action token pattern: [[ACTION: { ... }]]
+                    const parts = msg.text.split(/(\[\[ACTION:.*?\]\])/);
+
+                    return parts.map((part, partIdx) => {
+                      if (part.startsWith('[[ACTION:') && part.endsWith(']]')) {
+                        try {
+                          const jsonStr = part.slice(9, -2); // remove [[ACTION: and ]]
+                          const actionData = JSON.parse(jsonStr);
+
+                          return (
+                            <button
+                              key={partIdx}
+                              onClick={() => {
+                                const event = new CustomEvent('trigger-contact-prefill', { detail: actionData });
+                                window.dispatchEvent(event);
+                                setIsOpen(false);
+                              }}
+                              className="mt-3 w-full py-2 bg-neon-pink text-white text-xs font-bold uppercase tracking-wider rounded border border-white/20 hover:bg-neon-pink/80 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(236,72,153,0.3)]"
+                            >
+                              <Sparkles className="w-3 h-3" /> Initiate Sequence
+                            </button>
+                          );
+                        } catch (e) {
+                          return null;
+                        }
+                      }
+
+                      // Check for bold markdown in the text part
+                      return part.split(/(\*\*.*?\*\*)/).map((subPart, subIdx) => {
+                        if (subPart.startsWith('**') && subPart.endsWith('**')) {
+                          return <strong key={`${partIdx}-${subIdx}`} className="text-white font-bold">{subPart.slice(2, -2)}</strong>;
+                        }
+                        return <span key={`${partIdx}-${subIdx}`}>{subPart}</span>;
+                      });
+                    });
+                  })()}
                 </div>
               </div>
             ))}

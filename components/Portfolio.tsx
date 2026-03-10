@@ -62,7 +62,7 @@ const Portfolio: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div>
             <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-              LATEST <span className="text-neon-cyan">DEPLOYMENTS</span>
+              OUR RECENT <span className="text-neon-cyan">WORK</span>
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-neon-cyan to-transparent"></div>
           </div>

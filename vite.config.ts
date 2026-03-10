@@ -5,15 +5,14 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   return {
-    base: './',
+    base: '/',
     server: {
       port: 3000,
       host: '0.0.0.0',
     },
     plugins: [react()],
     define: {
-      'process.env.API_KEY': JSON.stringify("AIzaSyDg-kZcBOTaR1f2AbdSqOpEQJ0K0CWNrtE"),
-      'process.env.GEMINI_API_KEY': JSON.stringify("AIzaSyDg-kZcBOTaR1f2AbdSqOpEQJ0K0CWNrtE")
+      // Env vars are handled by import.meta.env
     },
     resolve: {
       alias: {
