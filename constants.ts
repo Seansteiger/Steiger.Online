@@ -24,7 +24,7 @@ export const PROJECTS: Project[] = [
     title: 'Eyi\'hle Fuel & Energy',
     category: 'Corporate Website',
     description: 'A premier independent distributor providing comprehensive energy solutions and reliable bulk fuel supply across South Africa.',
-    imageUrl: 'https://images.unsplash.com/photo-1560249298-6019323f49ed?q=80&w=2070&auto=format&fit=crop',
+    imageUrl: 'https://i.imgur.com/MF5s9Es.jpeg',
     tech: ['WordPress', 'Responsive Design', 'SEO'],
     link: 'https://eyihlefuelandenergysupply.co.za/'
   },
