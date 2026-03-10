@@ -27,7 +27,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
 
         <div className="inline-block mb-6 px-4 py-1.5 rounded-full border border-neon-cyan/30 bg-neon-cyan/5 backdrop-blur-sm animate-float">
-          <span className="text-neon-cyan text-xs font-bold tracking-[0.2em] uppercase">South Africa's Finest</span>
+          <span className="text-neon-cyan text-xs font-bold tracking-[0.2em] uppercase">Best designs</span>
         </div>
 
         <h1 className="text-5xl md:text-8xl font-display font-black text-white leading-tight tracking-tighter mb-8">

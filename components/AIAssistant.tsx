@@ -1,8 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, Send, X, Bot, Loader2, Sparkles } from 'lucide-react';
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import { SYSTEM_INSTRUCTION } from '../constants';
 import { ChatMessage } from '../types';
 
 const AIAssistant: React.FC = () => {
@@ -31,37 +29,25 @@ const AIAssistant: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Use standard Vite env var
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-
-      if (!apiKey) {
-        throw new Error("API Key not found. Please add VITE_GEMINI_API_KEY to your .env file.");
-      }
-
-      const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({
-        model: "gemini-flash-latest",
-        systemInstruction: SYSTEM_INSTRUCTION
-      });
-
-      // Construct history for context
-      // Construct history for context, excluding the initial greeting (index 0)
-      // and ensuring we don't send a 'model' role as the first message in history
       const historyMsg = messages.filter((_, i) => i > 0);
       const history = historyMsg.slice(-10).map(m => ({
         role: m.role as "user" | "model",
         parts: [{ text: m.text }]
       }));
 
-      const chat = model.startChat({
-        history: history
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMsg.text, history })
       });
 
-      const result = await chat.sendMessage(userMsg.text);
-      const response = await result.response;
-      const responseText = response.text();
+      const data = await response.json();
 
-      setMessages(prev => [...prev, { role: 'model', text: responseText, timestamp: new Date() }]);
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to communicate with AI server');
+      }
+
+      setMessages(prev => [...prev, { role: 'model', text: data.text, timestamp: new Date() }]);
 
     } catch (error) {
       console.error("AI Error:", error);
