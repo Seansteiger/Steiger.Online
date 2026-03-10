@@ -20,13 +20,13 @@ export const PROJECTS: Project[] = [
     link: 'https://seansteiger.github.io/Clarke-Student-Accom-Live/'
   },
   {
-    id: 'portfolio',
-    title: 'Sean Steiger Portfolio',
-    category: 'Digital Portfolio',
-    description: 'A showcase of my journey as a digital architect. This very site, demonstrating advanced React patterns and motion design.',
-    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
-    tech: ['React', 'Vite', 'Tailwind', 'AI'],
-    link: 'https://Seansteiger.github.io/sean-steiger-portfolio/'
+    id: 'eyihle',
+    title: 'Eyi\'hle Fuel & Energy',
+    category: 'Corporate Website',
+    description: 'A premier independent distributor providing comprehensive energy solutions and reliable bulk fuel supply across South Africa.',
+    imageUrl: 'https://images.unsplash.com/photo-1560249298-6019323f49ed?q=80&w=2070&auto=format&fit=crop',
+    tech: ['WordPress', 'Responsive Design', 'SEO'],
+    link: 'https://eyihlefuelandenergysupply.co.za/'
   },
   {
     id: '3',
@@ -63,6 +63,15 @@ export const PROJECTS: Project[] = [
     imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop',
     tech: ['Next.js', 'Framer Motion', 'TypeScript'],
     link: 'https://www.bngcconstruction.co.za/'
+  },
+  {
+    id: 'portfolio',
+    title: 'Sean Steiger Portfolio',
+    category: 'Digital Portfolio',
+    description: 'A showcase of my journey as a digital architect. This very site, demonstrating advanced React patterns and motion design.',
+    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
+    tech: ['React', 'Vite', 'Tailwind', 'AI'],
+    link: 'https://Seansteiger.github.io/sean-steiger-portfolio/'
   }
 ];
 
