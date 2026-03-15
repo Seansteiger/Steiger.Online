@@ -25,7 +25,7 @@ export const PROJECTS: Project[] = [
     category: 'Corporate Website',
     description: 'A premier independent distributor providing comprehensive energy solutions and reliable bulk fuel supply across South Africa.',
     imageUrl: 'https://i.imgur.com/MF5s9Es.jpeg',
-    tech: ['WordPress', 'Responsive Design', 'SEO'],
+    tech: ['Google Sites', 'HTML5', 'CSS3', 'SEO'],
     link: 'https://eyihlefuelandenergysupply.co.za/'
   },
   {
@@ -43,7 +43,7 @@ export const PROJECTS: Project[] = [
     category: 'Civil Engineering',
     description: 'Comprehensive civil engineering and project management solutions delivering sustainable infrastructure services.',
     imageUrl: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop',
-    tech: ['WordPress', 'PHP', 'MySQL'],
+    tech: ['PHP', 'MySQL', 'Custom CMS'],
     link: 'https://www.sizanaprojects.co.za/services'
   },
   {
@@ -72,6 +72,15 @@ export const PROJECTS: Project[] = [
     imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
     tech: ['React', 'Vite', 'Tailwind', 'AI'],
     link: 'https://Seansteiger.github.io/sean-steiger-portfolio/'
+  },
+  {
+    id: 'bush-buck',
+    title: 'Bush Buck Guesthouse',
+    category: 'Hospitality',
+    description: 'A charming guesthouse offering a serene escape with premium amenities and personalized service in a scenic setting.',
+    imageUrl: '/bush_buck_preview.png',
+    tech: ['React', 'Vite', 'Tailwind CSS', 'Vercel'],
+    link: 'https://bush-buck-guesthouse.vercel.app'
   }
 ];
 
