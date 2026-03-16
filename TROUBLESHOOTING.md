@@ -12,8 +12,8 @@ Persistent `[404] models/gemini-1.5-flash is not found` errors, even with valid 
 Specific model aliases (e.g., `gemini-1.5-flash`, `gemini-1.5-flash-001`, `gemini-pro`) were inconsistently available or not mapped correctly in the `v1beta` endpoint for the active API key tier.
 
 **Resolution:**  
-We utilized a script to list explicitly available models associated with the key.
-**Confirmed Working Model:** `gemini-flash-latest`
+We utilize the **Gemini 2.5 Flash** model for superior performance.
+**Confirmed Working Model:** `gemini-2.5-flash`
 
 ### 2. Chat History Structure (400 Bad Request)
 **Issue:**  
@@ -36,8 +36,10 @@ const historyMsg = messages.filter((_, i) => i > 0); // Exclude filtering greeti
 The original API key was exposed in the git history and subsequently blocked by Google's safety filters.
 
 **Fix:**  
-- API Key was rotated.
-- Application now uses `import.meta.env.VITE_GEMINI_API_KEY` with a `process.env` fallback defined in `vite.config.ts`.
+- API Key was rotated and untracked from Git.
+- Application transitioned to a **Vercel Serverless Backend** (`api/chat.ts`).
+- Frontend now uses a secure fetch to `/api/chat` instead of direct SDK calls.
+- Backend uses `process.env.GEMINI_API_KEY` (managed via Vercel Secret Manager).
 
 ## Build & Deployment
 

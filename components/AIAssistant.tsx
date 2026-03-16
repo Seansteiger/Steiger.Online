@@ -177,7 +177,7 @@ const AIAssistant: React.FC = () => {
               </button>
             </div>
             <div className="mt-2 text-[10px] text-center text-slate-600">
-              Powered by Gemini 1.5 Flash
+              Powered by Gemini 2.5 Flash
             </div>
           </div>
         </div>
