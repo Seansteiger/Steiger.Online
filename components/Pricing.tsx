@@ -124,9 +124,16 @@ const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
                                     : 'border-white/5 bg-slate-900/20 hover:border-neon-cyan/30 hover:-translate-y-2'
                                     }`}
                             >
-                                {/* Glow Effect */}
                                 <div className={`absolute inset-0 bg-gradient-to-br from-neon-cyan/10 to-transparent transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                                     }`}></div>
+
+                                {tier.id !== 'landing' || parseInt(tier.devPrice.split(' – ')[1]?.replace(/[^0-9]/g, '') || '0') > 2000 ? (
+                                    <div className="absolute top-0 right-0 z-20">
+                                        <div className="px-4 py-2 bg-gradient-to-l from-neon-pink to-neon-purple text-void font-black text-[10px] uppercase tracking-widest shadow-[0_0_20px_rgba(236,72,153,0.6)] rounded-bl-xl border-l border-b border-white/20 animate-pulse">
+                                            🔥 EASTER SALE - 33% OFF
+                                        </div>
+                                    </div>
+                                ) : null}
 
                                 <div className="relative z-10 flex flex-col h-full">
                                     {/* Header */}
@@ -149,6 +156,9 @@ const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
                                                 {tier.devPrice}
                                             </span>
                                         </div>
+                                        <p className="text-[10px] text-slate-500 italic mt-1">
+                                            *33% discount applies to final quote if over R2,000
+                                        </p>
                                         {/* Hiding AI and Hosting Prices for now */}
                                         {/* <div className="flex justify-between items-baseline">
                                             <span className="text-slate-400 text-sm">AI Agent Add-on</span>

@@ -4,11 +4,12 @@ import { Section } from '../types';
 
 interface HeroProps {
   scrollToSection: (section: Section) => void;
+  isSaleVisible?: boolean;
 }
 
-const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
+const Hero: React.FC<HeroProps> = ({ scrollToSection, isSaleVisible }) => {
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section id="home" className={`relative min-h-screen flex items-center justify-center overflow-hidden transition-all duration-500 ${isSaleVisible ? 'pt-40 md:pt-48' : 'pt-20'}`}>
 
       {/* Background Grid & Effects */}
       <div className="absolute inset-0 z-0">
@@ -26,8 +27,13 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
 
-        <div className="inline-block mb-6 px-4 py-1.5 rounded-full border border-neon-cyan/30 bg-neon-cyan/5 backdrop-blur-sm animate-float">
-          <span className="text-neon-cyan text-xs font-bold tracking-[0.2em] uppercase">Best designs</span>
+        <div className="flex flex-wrap justify-center gap-3 mb-6">
+          <div className="px-4 py-1.5 rounded-full border border-neon-cyan/30 bg-neon-cyan/5 backdrop-blur-sm animate-float">
+            <span className="text-neon-cyan text-xs font-bold tracking-[0.2em] uppercase">Best designs</span>
+          </div>
+          <div className="px-6 py-2 rounded-full border border-neon-pink/50 bg-neon-pink/10 backdrop-blur-md animate-float shadow-[0_0_15px_rgba(236,72,153,0.3)]" style={{ animationDelay: '0.5s' }}>
+            <span className="text-neon-pink text-sm font-black tracking-[0.2em] uppercase">🐣 Easter Sale - 33% OFF</span>
+          </div>
         </div>
 
         <h1 className="text-5xl md:text-8xl font-display font-black text-white leading-tight tracking-tighter mb-8">

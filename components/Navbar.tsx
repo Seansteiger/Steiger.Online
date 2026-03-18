@@ -5,9 +5,10 @@ import { Section } from '../types';
 interface NavbarProps {
   activeSection: Section;
   scrollToSection: (section: Section) => void;
+  isSaleVisible?: boolean;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
+const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection, isSaleVisible }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -42,9 +43,10 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 transform ${isVisible ? 'translate-y-0' : '-translate-y-full'
-        } ${isScrolled ? 'glass-panel py-3' : 'bg-transparent py-6'
+      className={`fixed left-0 w-full z-40 transition-all duration-500 transform ${isVisible ? 'translate-y-0' : '-translate-y-full'
+        } ${isScrolled ? 'glass-panel py-3 shadow-lg' : 'bg-transparent py-6'
         }`}
+      style={{ top: isSaleVisible ? '40px' : '0' }}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
