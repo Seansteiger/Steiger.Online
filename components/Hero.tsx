@@ -9,7 +9,7 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ scrollToSection, isSaleVisible }) => {
   return (
-    <section id="home" className={`relative min-h-screen flex items-center justify-center overflow-hidden transition-all duration-500 ${isSaleVisible ? 'pt-40 md:pt-48' : 'pt-20'}`}>
+    <section id="home" className={`relative min-h-screen flex items-center justify-center overflow-hidden transition-all duration-500 ${isSaleVisible ? 'pt-48 md:pt-56' : 'pt-20'}`}>
 
       {/* Background Grid & Effects */}
       <div className="absolute inset-0 z-0">
