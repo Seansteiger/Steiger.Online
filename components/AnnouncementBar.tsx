@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, X, Timer } from 'lucide-react';
+import { X, Timer, TrendingUp } from 'lucide-react';
 
 interface AnnouncementBarProps {
     isVisible: boolean;
@@ -15,7 +15,6 @@ const AnnouncementBar: React.FC<AnnouncementBarProps> = ({ isVisible, onClose })
     });
 
     useEffect(() => {
-        // Target: Midnight at the end of Easter Monday (April 6), which is April 7, 2026, 00:00:00
         const targetDate = new Date('2026-04-07T00:00:00').getTime();
 
         const timer = setInterval(() => {
@@ -42,46 +41,57 @@ const AnnouncementBar: React.FC<AnnouncementBarProps> = ({ isVisible, onClose })
     if (!isVisible) return null;
 
     return (
-        <div className="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-neon-purple via-neon-cyan to-neon-purple backdrop-blur-xl shadow-[0_0_20px_rgba(6,182,212,0.3)] border-b border-white/20 animate-pulse-slow">
-            <div className="max-w-7xl mx-auto px-4 min-h-[48px] md:h-12 flex flex-col md:flex-row items-center justify-center relative py-2 md:py-0 gap-2 md:gap-8">
-                <div className="flex items-center gap-2 text-void font-black text-[10px] md:text-sm tracking-[0.15em] uppercase drop-shadow-sm">
-                    <Sparkles className="w-3 h-3 md:w-5 md:h-5 text-white animate-bounce" />
-                    <span className="hidden lg:inline text-white">🔥 EASTER SALE IS ON:</span>
-                    <span>33% OFF ON PROJECTS {'>'} R2,000</span>
-                    <Sparkles className="w-3 h-3 md:w-5 md:h-5 text-white animate-bounce" style={{ animationDelay: '0.5s' }} />
-                </div>
-                
-                <div className="flex items-center gap-3 bg-void/20 px-4 py-1 rounded-sm border border-white/30 backdrop-blur-lg shadow-2xl scale-110 md:scale-100">
-                    <Timer className="w-4 h-4 text-white animate-pulse" />
-                    <div className="flex gap-3 text-white font-black text-sm md:text-lg tabular-nums">
-                        <div className="flex flex-col items-center">
-                            <span className="leading-none">{String(timeLeft.days).padStart(2, '0')}</span>
-                            <span className="text-[8px] opacity-70 tracking-tighter">DAYS</span>
+        <div className="fixed top-0 left-0 right-0 z-[60] px-0 py-0 sm:px-4 sm:py-2">
+            <div className="max-w-7xl mx-auto bg-gradient-to-r from-neon-cyan via-[#00f2ff] to-neon-cyan sm:rounded-full shadow-[0_0_30px_rgba(6,182,212,0.4)] border border-white/20 overflow-hidden">
+                <div className="h-12 md:h-14 flex items-center justify-between px-6 relative">
+                    
+                    {/* Main Promotion Area */}
+                    <div className="flex items-center gap-4 text-void">
+                        <div className="bg-void/10 p-1.5 rounded-full hidden md:block">
+                            <TrendingUp className="w-4 h-4" />
                         </div>
-                        <span className="opacity-50 text-xl leading-none">:</span>
-                        <div className="flex flex-col items-center">
-                            <span className="leading-none">{String(timeLeft.hours).padStart(2, '0')}</span>
-                            <span className="text-[8px] opacity-70 tracking-tighter">HOURS</span>
-                        </div>
-                        <span className="opacity-50 text-xl leading-none">:</span>
-                        <div className="flex flex-col items-center">
-                            <span className="leading-none">{String(timeLeft.minutes).padStart(2, '0')}</span>
-                            <span className="text-[8px] opacity-70 tracking-tighter">MINS</span>
-                        </div>
-                        <span className="opacity-50 text-xl leading-none">:</span>
-                        <div className="flex flex-col items-center">
-                            <span className="leading-none text-neon-cyan drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]">{String(timeLeft.seconds).padStart(2, '0')}</span>
-                            <span className="text-[8px] text-neon-cyan opacity-80 tracking-tighter">SECS</span>
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3">
+                            <span className="font-bold text-[10px] md:text-xs tracking-[0.2em] uppercase opacity-70">Easter Promotion</span>
+                            <div className="flex items-center gap-2">
+                                <span className="font-black text-sm md:text-base tracking-tight leading-none">33% DISCOUNT</span>
+                                <span className="text-[10px] md:text-xs font-semibold opacity-60 hidden sm:inline">— On projects above R2,000</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <button 
-                    onClick={onClose}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-all hover:scale-125 p-1"
-                >
-                    <X className="w-5 h-5" />
-                </button>
+                    {/* Timer Area - Dark Contrast */}
+                    <div className="flex items-center gap-6 bg-void/90 text-white px-5 py-2 rounded-full border border-white/10 shadow-2xl scale-90 md:scale-100">
+                        <div className="flex items-center gap-2 hidden lg:flex">
+                           <Timer className="w-3.5 h-3.5 text-neon-cyan opacity-80" />
+                           <span className="text-[9px] font-black tracking-widest uppercase opacity-40">Ends in</span>
+                        </div>
+                        
+                        <div className="flex gap-4 font-black text-xs md:text-sm tabular-nums tracking-wider text-neon-cyan">
+                            <div className="flex flex-col items-center">
+                                <span className="leading-none">{String(timeLeft.days).padStart(2, '0')}d</span>
+                            </div>
+                            <span className="opacity-20">:</span>
+                            <div className="flex flex-col items-center">
+                                <span className="leading-none">{String(timeLeft.hours).padStart(2, '0')}h</span>
+                            </div>
+                            <span className="opacity-20">:</span>
+                            <div className="flex flex-col items-center">
+                                <span className="leading-none">{String(timeLeft.minutes).padStart(2, '0')}m</span>
+                            </div>
+                            <span className="opacity-20">:</span>
+                            <div className="flex flex-col items-center">
+                                <span className="leading-none text-white animate-pulse">{String(timeLeft.seconds).padStart(2, '0')}s</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button 
+                        onClick={onClose}
+                        className="text-void/40 hover:text-void transition-all hover:scale-110 ml-4"
+                    >
+                        <X className="w-5 h-5" />
+                    </button>
+                </div>
             </div>
         </div>
     );

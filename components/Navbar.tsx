@@ -46,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection, isSaleV
       className={`fixed left-0 w-full z-40 transition-all duration-500 transform ${isVisible ? 'translate-y-0' : '-translate-y-full'
         } ${isScrolled ? 'glass-panel py-3 shadow-lg' : 'bg-transparent py-6'
         }`}
-      style={{ top: isSaleVisible ? '48px' : '0' }}
+      style={{ top: isSaleVisible ? '64px' : '0' }}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}

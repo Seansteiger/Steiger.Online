@@ -129,8 +129,8 @@ const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
 
                                 {tier.id !== 'landing' || parseInt(tier.devPrice.split(' – ')[1]?.replace(/[^0-9]/g, '') || '0') > 2000 ? (
                                     <div className="absolute top-0 right-0 z-20">
-                                        <div className="px-4 py-2 bg-gradient-to-l from-neon-pink to-neon-purple text-void font-black text-[10px] uppercase tracking-widest shadow-[0_0_20px_rgba(236,72,153,0.6)] rounded-bl-xl border-l border-b border-white/20 animate-pulse">
-                                            🔥 EASTER SALE - 33% OFF
+                                        <div className="px-4 py-1.5 bg-gradient-to-l from-neon-pink/90 to-neon-purple/90 text-void font-bold text-[9px] uppercase tracking-[0.2em] shadow-[0_0_15px_rgba(236,72,153,0.3)] rounded-bl-lg border-l border-b border-white/10">
+                                            Easter Promotion - 33% Off
                                         </div>
                                     </div>
                                 ) : null}
