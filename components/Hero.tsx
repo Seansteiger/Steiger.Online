@@ -44,7 +44,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection, isSaleVisible }) => {
         </h1>
 
         <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-          We build beautiful, high-performance websites designed to get you more customers and elevate your brand in South Africa.
+          We build beautiful, high-performance websites designed to get you more customers and elevate your brand <span className="text-neon-cyan font-bold drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]">Online</span>.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -58,12 +58,15 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection, isSaleVisible }) => {
             </span>
           </button>
 
-          <button
-            onClick={() => scrollToSection(Section.CONTACT)}
-            className="px-8 py-4 bg-transparent border border-white/20 text-white font-bold font-display uppercase tracking-wider rounded-sm hover:bg-white/5 hover:border-neon-cyan/50 hover:text-neon-cyan transition-all duration-300"
-          >
-            Get a Quote
-          </button>
+          <div className="relative group">
+            <div className="absolute inset-0 bg-neon-cyan/20 blur-xl rounded-full animate-pulse-slow md:hidden"></div>
+            <button
+              onClick={() => scrollToSection(Section.CONTACT)}
+              className="relative px-8 py-4 bg-transparent border border-neon-cyan/50 text-neon-cyan font-bold font-display uppercase tracking-wider rounded-sm hover:bg-neon-cyan hover:text-black transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.2)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] active:scale-95"
+            >
+              Get a Quote
+            </button>
+          </div>
         </div>
       </div>
 

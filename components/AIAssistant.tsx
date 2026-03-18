@@ -49,6 +49,21 @@ const AIAssistant: React.FC = () => {
 
       setMessages(prev => [...prev, { role: 'model', text: data.text, timestamp: new Date() }]);
 
+      // Proactive Human Referral Logic
+      const inputLower = userMsg.text.toLowerCase();
+      const humanKeywords = ['human', 'person', 'agent', 'real person', 'speak to', 'talk to', 'whatsapp', 'call', 'number'];
+      const showReferral = humanKeywords.some(keyword => inputLower.includes(keyword));
+
+      if (showReferral) {
+        setTimeout(() => {
+          setMessages(prev => [...prev, { 
+            role: 'model', 
+            text: "Would you like to speak directly with our lead agent? I can connect you via WhatsApp for immediate personal assistance. [[ACTION: {\"type\": \"WHATSAPP\"}]]", 
+            timestamp: new Date() 
+          }]);
+        }, 1000);
+      }
+
     } catch (error) {
       console.error("AI Error:", error);
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
@@ -113,6 +128,20 @@ const AIAssistant: React.FC = () => {
                         try {
                           const jsonStr = part.slice(9, -2); // remove [[ACTION: and ]]
                           const actionData = JSON.parse(jsonStr);
+
+                          if (actionData.type === 'WHATSAPP') {
+                            return (
+                              <button
+                                key={partIdx}
+                                onClick={() => {
+                                  window.open('https://wa.me/27699751347', '_blank');
+                                }}
+                                className="mt-3 w-full py-2.5 bg-[#25D366] text-white text-xs font-bold uppercase tracking-wider rounded border border-white/20 hover:bg-[#25D366]/90 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(37,211,102,0.3)]"
+                              >
+                                <MessageSquare className="w-3.5 h-3.5" /> Speak to Agent
+                              </button>
+                            );
+                          }
 
                           return (
                             <button
