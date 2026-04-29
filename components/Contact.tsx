@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, MapPin, Phone, Send } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, MessageSquare } from 'lucide-react';
 
 interface ContactProps {
   selectedPlan: string;
@@ -44,8 +44,14 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const message = `*New Inquiry from Website*%0A%0A*Name:* ${formData.name}%0A*Email:* ${formData.email}%0A*Mobile:* ${formData.mobile}%0A*Objective:* ${formData.objective}%0A*Details:* ${formData.details}`;
+    const message = `*New Inquiry from Website*%0A%0A*Name:* ${formData.name}%0A*Email:* ${formData.email}%0A*Mobile:* ${formData.mobile}%0A*Objective:* ${formData.objective}%0A*Details:* ${formData.details || 'No additional details provided.'}`;
     window.open(`https://wa.me/27699751347?text=${message}`, '_blank');
+  };
+
+  const handleEmailSubmit = () => {
+    const subject = `Project Inquiry: ${formData.objective}`;
+    const body = `Name: ${formData.name}\nEmail: ${formData.email}\nMobile: ${formData.mobile}\nObjective: ${formData.objective}\n\nDetails:\n${formData.details || 'No additional details provided.'}`;
+    window.location.href = `mailto:neo@steigeronline.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
@@ -83,7 +89,7 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
                 </div>
                 <div>
                   <h4 className="text-white font-bold mb-1">Email</h4>
-                  <a href="mailto:onlinesteiger@gmail.com" className="text-slate-400 text-sm hover:text-neon-pink transition-colors">onlinesteiger@gmail.com</a>
+                  <a href="mailto:neo@steigeronline.co.za" className="text-slate-400 text-sm hover:text-neon-pink transition-colors">neo@steigeronline.co.za</a>
                 </div>
               </div>
 
@@ -104,7 +110,9 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div className="space-y-2">
-                <label className="text-xs uppercase tracking-widest text-slate-500 font-bold">Name</label>
+                <label className="text-xs uppercase tracking-widest text-slate-500 font-bold">
+                  Name <span className="text-red-500">*</span>
+                </label>
                 <input
                   type="text"
                   name="name"
@@ -116,7 +124,9 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs uppercase tracking-widest text-slate-500 font-bold">Email</label>
+                <label className="text-xs uppercase tracking-widest text-slate-500 font-bold">
+                  Email <span className="text-red-500">*</span>
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -141,7 +151,9 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
             </div>
 
             <div className="space-y-2 mb-6">
-              <label className="text-xs uppercase tracking-widest text-slate-500 font-bold">Objective</label>
+              <label className="text-xs uppercase tracking-widest text-slate-500 font-bold">
+                Objective <span className="text-red-500">*</span>
+              </label>
               <select
                 name="objective"
                 value={formData.objective}
@@ -160,21 +172,38 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
             </div>
 
             <div className="space-y-2 mb-8">
-              <label className="text-xs uppercase tracking-widest text-slate-500 font-bold">Details</label>
+              <label className="text-xs uppercase tracking-widest text-slate-500 font-bold flex justify-between">
+                <span>Details</span>
+                <span className="text-[10px] lowercase font-normal opacity-60">(optional)</span>
+              </label>
               <textarea
                 name="details"
                 value={formData.details}
                 onChange={handleChange}
-                required
                 rows={4}
                 className="w-full bg-black/40 border border-white/10 rounded-lg p-3 text-white focus:border-neon-pink focus:outline-none transition-colors"
                 placeholder="Tell us about your vision..."
               ></textarea>
             </div>
 
-            <button type="submit" className="w-full py-4 bg-neon-pink text-white font-bold uppercase tracking-wider rounded-lg hover:bg-neon-pink/90 hover:shadow-[0_0_30px_rgba(236,72,153,0.4)] transition-all duration-300 flex items-center justify-center gap-2">
-              <Send className="w-4 h-4" /> Send Message
-            </button>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <button 
+                type="submit" 
+                className="w-full py-4 bg-[#25D366] text-white font-bold uppercase tracking-wider rounded-lg hover:bg-[#25D366]/90 hover:shadow-[0_0_30px_rgba(37,211,102,0.4)] transition-all duration-300 flex items-center justify-center gap-2"
+              >
+                <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.438 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .011 5.403.008 12.039c0 2.12.541 4.189 1.57 6.039L0 24l6.105-1.602a11.834 11.834 0 005.937 1.598h.005c6.637 0 12.033-5.397 12.036-12.037.001-3.218-1.252-6.243-3.528-8.517"/>
+                </svg>
+                WhatsApp Us
+              </button>
+              <button 
+                type="button"
+                onClick={handleEmailSubmit}
+                className="w-full py-4 bg-neon-pink text-white font-bold uppercase tracking-wider rounded-lg hover:bg-neon-pink/90 hover:shadow-[0_0_30px_rgba(236,72,153,0.4)] transition-all duration-300 flex items-center justify-center gap-2"
+              >
+                <Mail className="w-5 h-5" /> Email
+              </button>
+            </div>
 
           </form>
 

@@ -8,8 +8,7 @@ const PRICING_TIERS = [
         icon: Globe,
         description: 'Perfect for campaigns, personal profiles, or simple product launches.',
         devPrice: 'R1,200 – R3,500',
-        hostPrice: 'R149',
-        aiPrice: '+ R2,000 (FAQ & Lead Capture)',
+        hostPrice: '100',
         features: [
             'High-Conversion Design',
             'WhatsApp & Lead Forms',
@@ -25,11 +24,10 @@ const PRICING_TIERS = [
         icon: Server,
         description: 'The digital brochure for your business. Establish credibility and showcase services.',
         devPrice: 'R3,500 – R8,500',
-        hostPrice: 'R299',
-        aiPrice: '+ R3,000 (Lead Gen & Booking)',
+        hostPrice: '150',
         features: [
             '3+ Premium Pages',
-            'CMS Integration (WordPress)',
+            'CMS Integration',
             'Advanced SEO Optimization',
             'Google Analytics & Heatmaps',
             'Social Media Integration',
@@ -42,14 +40,13 @@ const PRICING_TIERS = [
         icon: ShoppingBag,
         description: 'A complete digital storefront. Sell unlimited products with automated systems.',
         devPrice: 'R8,500+',
-        hostPrice: 'R299+',
-        aiPrice: '+ R4,500 (Order & Product Queries)',
+        hostPrice: '300+',
         features: [
             'Unlimited Products & Categories',
-            'Secure Payments (PayFast/Yoco)',
+            'Secure Payments',
             'Admin Dashboard & Inventory',
             'Advanced SEO Optimization',
-            'Customer Accounts & Tracking',
+            'Client Accounts & Tracking',
             'Abandoned Cart Recovery'
         ]
     }
@@ -127,13 +124,6 @@ const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
                                 <div className={`absolute inset-0 bg-gradient-to-br from-neon-cyan/10 to-transparent transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                                     }`}></div>
 
-                                {tier.id !== 'landing' || parseInt(tier.devPrice.split(' – ')[1]?.replace(/[^0-9]/g, '') || '0') > 2000 ? (
-                                    <div className="absolute top-0 right-0 z-20">
-                                        <div className="px-4 py-1.5 bg-gradient-to-l from-neon-pink/90 to-neon-purple/90 text-void font-bold text-[9px] uppercase tracking-[0.2em] shadow-[0_0_15px_rgba(236,72,153,0.3)] rounded-bl-lg border-l border-b border-white/10">
-                                            Easter Promotion - 33% Off
-                                        </div>
-                                    </div>
-                                ) : null}
 
                                 <div className="relative z-10 flex flex-col h-full">
                                     {/* Header */}
@@ -156,22 +146,12 @@ const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
                                                 {tier.devPrice}
                                             </span>
                                         </div>
-                                        <p className="text-[10px] text-slate-500 italic mt-1">
-                                            *33% discount applies to final quote if over R2,000
-                                        </p>
-                                        {/* Hiding AI and Hosting Prices for now */}
-                                        {/* <div className="flex justify-between items-baseline">
-                                            <span className="text-slate-400 text-sm">AI Agent Add-on</span>
-                                            <span className="text-neon-pink text-sm font-bold">
-                                                {tier.aiPrice}
+                                        <div className="flex justify-between items-baseline pt-2 border-t border-white/5 mt-2">
+                                            <span className="text-slate-500 text-xs">Monthly Hosting</span>
+                                            <span className="text-slate-400 text-xs text-right">
+                                                R{tier.hostPrice} /mo
                                             </span>
                                         </div>
-                                        <div className="flex justify-between items-baseline pt-2">
-                                            <span className="text-slate-500 text-xs">Hosting</span>
-                                            <span className="text-slate-400 text-xs">
-                                                {tier.hostPrice} /mo
-                                            </span>
-                                        </div> */}
                                     </div>
 
                                     {/* Features */}

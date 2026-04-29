@@ -13,7 +13,7 @@ Steiger.Online is a premium web development and digital architecture agency base
 - **No Templates**: We hand-code digital ecosystems.
 - **Speed**: We optimize for maximum performance and Google Core Web Vitals.
 - **Location**: Based in Gauteng, serving South Africa and international clients.
-- **Contact**: onlinesteiger@gmail.com | +27 69 975 1347
+- **Contact**: neo@steigeronline.co.za | +27 69 975 1347
 
 ## Portfolio Highlights
 - **Jozi Student Hub**: E-commerce platform for students.

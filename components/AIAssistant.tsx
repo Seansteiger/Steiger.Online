@@ -69,7 +69,7 @@ const AIAssistant: React.FC = () => {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
       setMessages(prev => [...prev, {
         role: 'model',
-        text: `Systems offline. Error details: ${errorMessage}. Please verify API configuration or try again later.`,
+        text: `I'm having trouble connecting to the neural network right now. Please try again in a moment, or reach out to us directly at neo@steigeronline.co.za.`,
         timestamp: new Date()
       }]);
     } finally {

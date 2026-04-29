@@ -8,13 +8,11 @@ import Contact from './components/Contact';
 import AIAssistant from './components/AIAssistant';
 import MouseFollower from './components/ui/MouseFollower';
 import DynamicBackground from './components/ui/DynamicBackground';
-import AnnouncementBar from './components/AnnouncementBar';
 import { Section } from './types';
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<Section>(Section.HOME);
   const [selectedPlan, setSelectedPlan] = useState<string>('');
-  const [isSaleVisible, setIsSaleVisible] = useState(true);
 
   // Scroll Spy to detect active section
   useEffect(() => {
@@ -54,13 +52,12 @@ const App: React.FC = () => {
 
   return (
     <div className="relative w-full min-h-screen">
-      <AnnouncementBar isVisible={isSaleVisible} onClose={() => setIsSaleVisible(false)} />
       <MouseFollower />
       <DynamicBackground activeSection={activeSection} />
-      <Navbar activeSection={activeSection} scrollToSection={scrollToSection} isSaleVisible={isSaleVisible} />
+      <Navbar activeSection={activeSection} scrollToSection={scrollToSection} />
 
       <main className="relative z-10">
-        <Hero scrollToSection={scrollToSection} isSaleVisible={isSaleVisible} />
+        <Hero scrollToSection={scrollToSection} />
         <Services />
         <Pricing onSelectPlan={setSelectedPlan} />
         <Portfolio />

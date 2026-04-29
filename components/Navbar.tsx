@@ -5,10 +5,9 @@ import { Section } from '../types';
 interface NavbarProps {
   activeSection: Section;
   scrollToSection: (section: Section) => void;
-  isSaleVisible?: boolean;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection, isSaleVisible }) => {
+const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -54,7 +53,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection, isSaleV
         className={`fixed left-0 w-full z-40 transition-all duration-500 transform ${isVisible ? 'translate-y-0' : '-translate-y-full'
           } ${isScrolled ? 'glass-panel py-3 shadow-lg' : 'bg-transparent py-5'
           }`}
-        style={{ top: isSaleVisible ? (window.innerWidth < 640 ? '40px' : '64px') : '0' }}
+        style={{ top: '0' }}
       >
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           {/* Logo */}
@@ -105,9 +104,9 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection, isSaleV
 
       {/* Refined Compact Mobile Menu Drawer */}
       <div 
-        className={`fixed inset-y-0 right-0 z-50 w-[280px] bg-void/98 backdrop-blur-2xl border-l border-white/5 transition-transform duration-500 transform ${
+        className={`fixed inset-y-0 right-0 z-50 w-[280px] h-fit bg-void/98 backdrop-blur-2xl border-l border-b border-white/5 transition-transform duration-500 transform ${
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        } md:hidden flex flex-col shadow-[-10px_0_30px_rgba(0,0,0,0.5)]`}
+        } md:hidden flex flex-col shadow-[-10px_0_30px_rgba(0,0,0,0.5)] rounded-bl-3xl`}
       >
         {/* Menu Header */}
         <div className="p-6 flex justify-between items-center bg-white/5">
@@ -155,15 +154,6 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection, isSaleV
           </div>
         </div>
 
-        {/* Menu Footer */}
-        <div className="p-6 bg-white/5 flex justify-center gap-6 border-t border-white/5">
-            <a href="#" className="p-2 text-white/40 hover:text-neon-cyan transition-colors">
-              <Instagram className="w-5 h-5" />
-            </a>
-            <a href="#" className="p-2 text-white/40 hover:text-neon-cyan transition-colors">
-              <MessageSquare className="w-5 h-5" />
-            </a>
-        </div>
       </div>
 
       {/* Backdrop for Drawer */}

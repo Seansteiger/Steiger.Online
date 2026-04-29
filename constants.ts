@@ -6,7 +6,7 @@ export const PROJECTS: Project[] = [
     title: 'Jozi Student Hub',
     category: 'E-Commerce Store',
     description: 'The go-to online store for UJ students. We sell room decor, kitchen appliances, game night essentials, and desk gear with fast local delivery.',
-    imageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop',
+    imageUrl: '/jozi-logo.png',
     tech: ['HTML5', 'CSS3', 'Vanilla JS', 'Supabase', 'Xneelo'],
     link: 'https://jozistudenthub.co.za'
   },
@@ -27,15 +27,6 @@ export const PROJECTS: Project[] = [
     imageUrl: 'https://i.imgur.com/MF5s9Es.jpeg',
     tech: ['Google Sites', 'HTML5', 'CSS3', 'SEO'],
     link: 'https://eyihlefuelandenergysupply.co.za/'
-  },
-  {
-    id: '3',
-    title: 'Scented',
-    category: 'Luxury Fragrances',
-    description: 'A minimalist, high-end e-commerce experience for exclusive fragrances. Visual storytelling meets sensory design.',
-    imageUrl: 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?q=80&w=2070&auto=format&fit=crop',
-    tech: ['Vercel', 'Next.js', 'Stripe', 'TypeScript'],
-    link: 'https://scented-tau.vercel.app'
   },
   {
     id: '4',
@@ -81,6 +72,15 @@ export const PROJECTS: Project[] = [
     imageUrl: '/bush_buck_preview.png',
     tech: ['React', 'Vite', 'Tailwind CSS', 'Vercel'],
     link: 'https://bush-buck-guesthouse.vercel.app'
+  },
+  {
+    id: 'mmalefe',
+    title: 'Mmalefe Trading Projects',
+    category: 'Strategic Consulting',
+    description: 'Empowering South African entrepreneurs with strategic support and compliance solutions to thrive in a complex regulatory landscape.',
+    imageUrl: '/mmalefe-logo.png',
+    tech: ['HTML5', 'CSS3', 'SEO', 'Business Strategy'],
+    link: 'https://www.mmalefetradingprojects.co.za/index.html'
   }
 ];
 
@@ -94,7 +94,7 @@ export const SERVICES: Service[] = [
   {
     id: 'uiux',
     title: 'Modern Web Design',
-    description: 'Beautiful, easy-to-use interfaces that build trust with your customers and guide them smoothly toward contacting you.',
+    description: 'Beautiful, easy-to-use interfaces that build trust with your clients and guide them smoothly toward contacting you.',
     icon: 'Layers'
   },
   {
@@ -106,7 +106,7 @@ export const SERVICES: Service[] = [
   {
     id: 'ai',
     title: 'Business Automation',
-    description: 'Save time and resources with custom software solutions, automated workflows, and smart customer service tools.',
+    description: 'Save time and resources with custom software solutions, automated workflows, and smart client service tools.',
     icon: 'Cpu'
   }
 ];

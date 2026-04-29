@@ -4,12 +4,11 @@ import { Section } from '../types';
 
 interface HeroProps {
   scrollToSection: (section: Section) => void;
-  isSaleVisible?: boolean;
 }
 
-const Hero: React.FC<HeroProps> = ({ scrollToSection, isSaleVisible }) => {
+const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
   return (
-    <section id="home" className={`relative min-h-screen flex items-center justify-center overflow-hidden transition-all duration-500 ${isSaleVisible ? 'pt-64 md:pt-72' : 'pt-20'}`}>
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden transition-all duration-500 pt-20">
 
       {/* Background Grid & Effects */}
       <div className="absolute inset-0 z-0">
@@ -31,9 +30,6 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection, isSaleVisible }) => {
           <div className="px-4 py-1.5 rounded-full border border-neon-cyan/30 bg-neon-cyan/5 backdrop-blur-sm animate-float">
             <span className="text-neon-cyan text-xs font-bold tracking-[0.2em] uppercase">Best designs</span>
           </div>
-          <div className="px-6 py-2 rounded-full border border-neon-pink/40 bg-neon-pink/10 backdrop-blur-md animate-float shadow-[0_0_15px_rgba(236,72,153,0.2)]" style={{ animationDelay: '0.5s' }}>
-            <span className="text-neon-pink text-xs font-bold tracking-[0.3em] uppercase">Easter Promotion - 33% Discount</span>
-          </div>
         </div>
 
         <h1 className="text-5xl md:text-8xl font-display font-black text-white leading-tight tracking-tighter mb-8">
@@ -44,7 +40,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection, isSaleVisible }) => {
         </h1>
 
         <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-          We build beautiful, high-performance websites designed to get you more customers and elevate your brand <span className="text-neon-cyan font-bold drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]">Online</span>.
+          We build beautiful, high-performance websites designed to get you more clients and elevate your brand <span className="text-neon-cyan font-bold drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]">Online</span>.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
