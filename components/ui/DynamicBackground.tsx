@@ -13,6 +13,8 @@ const backgrounds: Record<Section, string> = {
   [Section.SERVICES]: 'https://images.unsplash.com/photo-1558494949-ef2bb6db8744?q=80&w=2070&auto=format&fit=crop',
   // Code screens for Portfolio
   [Section.PORTFOLIO]: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop',
+  // Charts for Pricing
+  [Section.PRICING]: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
   // Neon Keyboard for Contact
   [Section.CONTACT]: 'https://images.unsplash.com/photo-1587829741301-dc798b91a45e?q=80&w=2070&auto=format&fit=crop',
 };
