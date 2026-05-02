@@ -7,8 +7,8 @@ const PRICING_TIERS = [
         name: 'Landing Page',
         icon: Globe,
         description: 'Perfect for campaigns, personal profiles, or simple product launches.',
-        devPrice: 'R1,200 – R3,500',
-        hostPrice: '100',
+        devPrice: 'R1,199 – R2,499',
+        hostPrice: '99',
         features: [
             'High-Conversion Design',
             'WhatsApp & Lead Forms',
@@ -23,8 +23,8 @@ const PRICING_TIERS = [
         name: 'Business Website',
         icon: Server,
         description: 'The digital brochure for your business. Establish credibility and showcase services.',
-        devPrice: 'R3,500 – R8,500',
-        hostPrice: '150',
+        devPrice: 'R2,499 – R5,999',
+        hostPrice: '149',
         features: [
             '3+ Premium Pages',
             'CMS Integration',
@@ -39,8 +39,8 @@ const PRICING_TIERS = [
         name: 'E-Commerce',
         icon: ShoppingBag,
         description: 'A complete digital storefront. Sell unlimited products with automated systems.',
-        devPrice: 'R8,500+',
-        hostPrice: '300+',
+        devPrice: 'R5,999+',
+        hostPrice: '299',
         features: [
             'Unlimited Products & Categories',
             'Secure Payments',
