@@ -40,7 +40,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
         </h1>
 
         <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-          We build beautiful, high-performance websites designed to get you more clients and elevate your brand <span className="text-neon-cyan font-bold drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]">Online</span>.
+          We build premium, high-performance websites designed to get you more customers and elevate your brand <span className="text-neon-cyan font-bold drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]">Online</span>.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
