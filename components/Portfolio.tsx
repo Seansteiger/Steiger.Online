@@ -49,20 +49,9 @@ const Portfolio: React.FC = () => {
                   <h3 className="text-lg font-bold mb-1.5 text-slate-900 group-hover:text-amber-600 transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-xs mb-4 leading-relaxed text-slate-600">
+                  <p className="text-xs leading-relaxed text-slate-600">
                     {project.tagline}
                   </p>
-
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tech.map((t, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2.5 py-0.5 rounded text-[10px] font-mono bg-slate-50 text-slate-700 border border-slate-200"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               </div>
 

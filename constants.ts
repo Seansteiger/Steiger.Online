@@ -44,11 +44,11 @@ export const PROJECTS: Project[] = [
   {
     id: 'jsh',
     title: 'JSH (Jozi Student Hub)',
-    category: 'Student Portal',
-    tagline: 'Student accommodation and campus housing portal in Johannesburg',
-    metric: 'Live Portal',
+    category: 'E-Commerce Store',
+    tagline: 'Online student essentials and campus retail store in Johannesburg',
+    metric: 'Online Store',
     imageUrl: '/jsh_preview.png',
-    tech: ['Modern Design', 'Fast Loading', 'Google Ready'],
+    tech: ['Online Store', 'Fast Checkout', 'Mobile Friendly'],
     link: 'https://jozistudenthub.co.za'
   },
   {
