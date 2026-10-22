@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-base: #fbfaf7;
+    --bg-surface-1: #ffffff;
+    --bg-surface-2: #f8f7f2;
+    --bg-surface-3: #f1efe8;
+    --border-subtle: rgba(15, 23, 42, 0.08);
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --accent-amber: #d97706;
+    --accent-gold: #b45309;
+    --accent-cyan: #0284c7;
+    --glass-card: rgba(255, 255, 255, 0.92);
+    --glass-card-elevated: #ffffff;
+    --glass-border: rgba(15, 23, 42, 0.08);
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 0 1px 1px rgba(0, 0, 0, 0.03);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #fbfaf7;
+    color: #0f172a;
+  }
+
+  body {
+    overflow-x: hidden;
+    min-height: 100vh;
+    background-color: #fbfaf7;
+    color: #0f172a;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #fbfaf7;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d97706;
+}
+
+/* Dynamic Frosted Glass Panels */
+.theme-panel {
+  background: var(--glass-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--card-shadow);
+  transition: all 0.25s ease-out;
+}
+
+.theme-panel-elevated {
+  background: var(--glass-card-elevated);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.08);
+}
+
+/* Hover Card Transitions */
+.interactive-card {
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.interactive-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-amber);
+}
+
+/* Subtle Ambient Pulse Animation */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.28;
+    transform: scale(1.04);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 6s ease-in-out infinite;
+}

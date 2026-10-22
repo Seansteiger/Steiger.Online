@@ -1,194 +1,109 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Check, Globe, ShoppingBag, Rocket, Server, Smartphone } from 'lucide-react';
+'use client';
 
-const PRICING_TIERS = [
-    {
-        id: 'landing',
-        name: 'Landing Page',
-        icon: Globe,
-        description: 'Perfect for campaigns, personal profiles, or simple product launches.',
-        devPrice: 'R1,199 – R2,499',
-        hostPrice: '99',
-        features: [
-            'High-Conversion Design',
-            'WhatsApp & Lead Forms',
-            'Advanced SEO Optimization',
-            'Blazing Fast Performance',
-            'Hosting & Domain Setup',
-            'Mobile First Architecture'
-        ]
-    },
-    {
-        id: 'business',
-        name: 'Business Website',
-        icon: Server,
-        description: 'The digital brochure for your business. Establish credibility and showcase services.',
-        devPrice: 'R2,499 – R5,999',
-        hostPrice: '149',
-        features: [
-            '3+ Premium Pages',
-            'CMS Integration',
-            'Advanced SEO Optimization',
-            'Google Analytics & Heatmaps',
-            'Social Media Integration',
-            '1 Month Free Support'
-        ]
-    },
-    {
-        id: 'ecommerce',
-        name: 'E-Commerce',
-        icon: ShoppingBag,
-        description: 'A complete digital storefront. Sell unlimited products with automated systems.',
-        devPrice: 'R5,999+',
-        hostPrice: '299',
-        features: [
-            'Unlimited Products & Categories',
-            'Secure Payments',
-            'Admin Dashboard & Inventory',
-            'Advanced SEO Optimization',
-            'Client Accounts & Tracking',
-            'Abandoned Cart Recovery'
-        ]
-    }
-];
+import React from 'react';
+import { PRICING_TIERS } from '@/constants';
+import { Check, ArrowRight } from 'lucide-react';
+import { Section } from '@/types';
 
 interface PricingProps {
-    onSelectPlan: (plan: string) => void;
+  onSelectPlan: (plan: string) => void;
+  scrollToSection?: (section: Section) => void;
 }
 
-const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
-    const [activeId, setActiveId] = useState<string | null>(null);
-    const observerRef = useRef<IntersectionObserver | null>(null);
-    const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+const Pricing: React.FC<PricingProps> = ({ onSelectPlan, scrollToSection }) => {
+  const handleSelect = (planName: string) => {
+    onSelectPlan(planName);
+    if (scrollToSection) {
+      scrollToSection(Section.CONTACT);
+    }
+  };
 
-    useEffect(() => {
-        observerRef.current = new IntersectionObserver((entries) => {
-            // Check for mobile breakpoint (768px)
-            const isMobile = typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(max-width: 768px)').matches : false;
+  return (
+    <section id="pricing" className="py-24 relative overflow-hidden bg-[#fbfaf7]">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="mb-12">
+          <span className="text-xs font-mono uppercase tracking-widest block mb-2 text-amber-600 font-bold">
+            Simple Pricing
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+            Fair, Transparent Packages.
+          </h2>
+          <p className="text-sm mt-2 max-w-xl text-slate-600">
+            Choose what fits your business best. No hidden fees or unexpected costs.
+          </p>
+        </div>
 
-            // On Desktop, do NOT use JS scroll activation (let CSS hover handle it)
-            if (!isMobile) {
-                if (activeId !== null) setActiveId(null);
-                return;
-            }
+        {/* 4 Clean Pricing Tiers */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          {PRICING_TIERS.map((tier) => (
+            <div
+              key={tier.id}
+              className={`rounded-2xl p-6 flex flex-col justify-between relative transition-all duration-300 ${
+                tier.popular
+                  ? 'bg-white border-2 border-amber-500 shadow-[0_15px_35px_-5px_rgba(217,119,6,0.18)] lg:-translate-y-2'
+                  : 'bg-white border border-slate-200/90 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] hover:border-amber-400 hover:shadow-[0_15px_30px_-5px_rgba(217,119,6,0.1)]'
+              }`}
+            >
+              {tier.badge && (
+                <div
+                  className={`absolute top-4 right-4 px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider ${
+                    tier.popular
+                      ? 'bg-amber-400 text-slate-950 shadow-sm'
+                      : 'bg-slate-100 text-slate-700'
+                  }`}
+                >
+                  {tier.badge}
+                </div>
+              )}
 
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    setActiveId(entry.target.getAttribute('data-id'));
-                } else {
-                    const targetId = entry.target.getAttribute('data-id');
-                    if (targetId) {
-                        setActiveId(prev => (prev === targetId ? null : prev));
-                    }
-                }
-            });
-        }, {
-            threshold: 0.6,
-            rootMargin: "0px 0px -100px 0px"
-        });
+              <div>
+                <h3 className="text-lg font-bold mb-2 text-slate-900">
+                  {tier.name}
+                </h3>
 
-        cardsRef.current.forEach(el => {
-            if (el) observerRef.current?.observe(el);
-        });
-
-        return () => observerRef.current?.disconnect();
-    }, []);
-
-    return (
-        <section id="pricing" className="py-24 relative bg-void/50">
-            <div className="max-w-7xl mx-auto px-6">
-                <div className="mb-16">
-                    <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-                        TRANSPARENT <span className="text-neon-cyan">PRICING</span>
-                    </h2>
-                    <div className="w-24 h-1 bg-gradient-to-r from-neon-cyan to-transparent"></div>
-                    <p className="text-slate-400 mt-4 max-w-2xl">
-                        Let's help you get your site live. Tell us your vision and let our team of developers bring it to life.
-                    </p>
+                <div className="mb-5 pb-5 border-b border-slate-100">
+                  <div className="text-2xl sm:text-3xl font-mono font-bold tracking-tight text-slate-900">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-slate-900">
+                      {tier.devPrice}
+                    </span>
+                  </div>
+                  <div className="text-xs font-mono text-slate-500 mt-1 flex items-center gap-1.5">
+                    <span>Hosting: {tier.hostPrice}</span>
+                    <span>•</span>
+                    <span>{tier.turnaround}</span>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {PRICING_TIERS.map((tier, index) => {
-                        const isActive = activeId === tier.id;
+                <ul className="space-y-3 mb-8">
+                  {tier.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5 text-xs text-slate-700">
+                      <div className="w-4 h-4 rounded-full bg-amber-500/15 flex items-center justify-center shrink-0 mt-0.5">
+                        <Check className="w-2.5 h-2.5 text-amber-600" />
+                      </div>
+                      <span className="leading-relaxed">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-                        return (
-                            <div
-                                key={tier.id}
-                                ref={el => cardsRef.current[index] = el}
-                                data-id={tier.id}
-                                className={`group relative p-8 rounded-xl border transition-all duration-500 overflow-hidden flex flex-col ${isActive
-                                    ? 'border-neon-cyan/50 bg-slate-900/40 shadow-[0_0_30px_rgba(6,182,212,0.1)] -translate-y-2'
-                                    : 'border-white/5 bg-slate-900/20 hover:border-neon-cyan/30 hover:-translate-y-2'
-                                    }`}
-                            >
-                                <div className={`absolute inset-0 bg-gradient-to-br from-neon-cyan/10 to-transparent transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                                    }`}></div>
-
-
-                                <div className="relative z-10 flex flex-col h-full">
-                                    {/* Header */}
-                                    <div className="flex items-center gap-4 mb-6">
-                                        <div className={`p-3 rounded-lg bg-void border transition-colors duration-300 ${isActive ? 'border-neon-cyan text-neon-cyan' : 'border-white/10 text-slate-400 group-hover:border-neon-cyan/50 group-hover:text-neon-cyan'
-                                            }`}>
-                                            <tier.icon className="w-8 h-8" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-2xl font-bold font-display text-white">{tier.name}</h3>
-                                            <p className="text-sm text-slate-400 mt-2 leading-relaxed">{tier.description}</p>
-                                        </div>
-                                    </div>
-
-                                    {/* Pricing */}
-                                    <div className="my-6 space-y-4 pb-8 border-b border-white/10">
-                                        <div className="flex justify-between items-baseline">
-                                            <span className="text-slate-400 text-sm">Base Website</span>
-                                            <span className={`font-bold text-xl ${isActive ? 'text-neon-cyan' : 'text-white'}`}>
-                                                {tier.devPrice}
-                                            </span>
-                                        </div>
-                                        <div className="flex justify-between items-baseline pt-2 border-t border-white/5 mt-2">
-                                            <span className="text-slate-500 text-xs">Monthly Hosting</span>
-                                            <span className="text-slate-400 text-xs text-right">
-                                                R{tier.hostPrice} /mo
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    {/* Features */}
-                                    <div className="space-y-3 flex-grow">
-                                        {tier.features.map((feature, i) => (
-                                            <div key={i} className="flex items-start gap-3 text-sm">
-                                                <Check className={`w-4 h-4 mt-0.5 shrink-0 ${isActive ? 'text-neon-cyan' : 'text-slate-600 group-hover:text-neon-cyan'
-                                                    }`} />
-                                                <span className="text-slate-300">{feature}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    {/* CTA */}
-                                    <div className="mt-8 pt-6 border-t border-white/5">
-                                        <button
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                onSelectPlan(tier.name);
-                                                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                                            }}
-                                            className={`block w-full py-4 text-center rounded text-sm font-bold uppercase tracking-widest transition-all duration-300 ${isActive
-                                                ? 'bg-neon-cyan text-black shadow-[0_0_20px_rgba(6,182,212,0.6)]'
-                                                : 'bg-white/5 text-white border border-neon-cyan/30 hover:bg-neon-cyan hover:text-black hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]'
-                                                }`}
-                                        >
-                                            Select Plan
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
+              <button
+                type="button"
+                onClick={() => handleSelect(tier.name)}
+                className={`w-full py-3 px-4 rounded-xl font-bold font-mono text-xs transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95 ${
+                  tier.popular
+                    ? 'bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-md'
+                    : 'bg-slate-100 hover:bg-amber-400 hover:text-slate-950 text-slate-800'
+                }`}
+              >
+                <span>Select {tier.name}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
             </div>
-        </section>
-    );
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Pricing;

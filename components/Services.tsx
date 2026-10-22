@@ -1,91 +1,88 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Globe, Layers, Zap, Cpu } from 'lucide-react';
-import { SERVICES } from '../constants';
+'use client';
 
-const iconMap: Record<string, React.ReactNode> = {
-  'Globe': <Globe className="w-8 h-8" />,
-  'Layers': <Layers className="w-8 h-8" />,
-  'Zap': <Zap className="w-8 h-8" />,
-  'Cpu': <Cpu className="w-8 h-8" />,
+import React from 'react';
+import { SERVICES } from '@/constants';
+import { Globe, ShoppingBag, Layers, Cpu, Check } from 'lucide-react';
+import { Section } from '@/types';
+
+interface ServicesProps {
+  onSelectService?: (serviceTitle: string) => void;
+  scrollToSection?: (section: Section) => void;
+}
+
+const iconMap: Record<string, React.ElementType> = {
+  Globe,
+  ShoppingBag,
+  Layers,
+  Cpu,
 };
 
-const Services: React.FC = () => {
-  const [activeId, setActiveId] = useState<string | null>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    observerRef.current = new IntersectionObserver((entries) => {
-      // Check for mobile breakpoint (768px)
-      const isMobile = typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(max-width: 768px)').matches : false;
-
-      // On Desktop, do NOT use JS scroll activation (let CSS hover handle it)
-      if (!isMobile) {
-        if (activeId !== null) setActiveId(null);
-        return;
-      }
-
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveId(entry.target.getAttribute('data-id'));
-        } else {
-          const targetId = entry.target.getAttribute('data-id');
-          if (targetId) {
-            setActiveId(prev => (prev === targetId ? null : prev));
-          }
-        }
-      });
-    }, {
-      threshold: 0.7,
-      rootMargin: "0px 0px -100px 0px"
-    });
-
-    cardsRef.current.forEach(el => {
-      if (el) observerRef.current?.observe(el);
-    });
-
-    return () => observerRef.current?.disconnect();
-  }, []);
+const Services: React.FC<ServicesProps> = ({ onSelectService, scrollToSection }) => {
+  const handleServiceClick = (serviceTitle: string) => {
+    if (onSelectService) {
+      onSelectService(serviceTitle);
+    }
+    if (scrollToSection) {
+      scrollToSection(Section.CONTACT);
+    }
+  };
 
   return (
-    <section id="services" className="py-24 relative bg-transparent">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-16">
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-            OUR <span className="text-neon-purple">SERVICES</span>
+    <section id="services" className="py-24 relative overflow-hidden bg-[#fbfaf7]">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="mb-12">
+          <span className="text-xs font-mono uppercase tracking-widest block mb-2 text-amber-600 font-bold">
+            What We Do
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+            Services Built To Help You Grow.
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-neon-purple to-transparent"></div>
+          <p className="text-sm mt-2 text-slate-600 max-w-xl">
+            Everything you need for a strong online presence, delivered on time with no headaches.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SERVICES.map((service, index) => {
-            const isActive = activeId === service.id;
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {SERVICES.map((service) => {
+            const Icon = iconMap[service.icon] || Globe;
             return (
               <div
                 key={service.id}
-                ref={el => cardsRef.current[index] = el}
-                data-id={service.id}
-                className={`group relative p-8 glass-panel rounded-xl hover:-translate-y-2 transition-transform duration-300 border-t border-white/10 ${isActive ? '-translate-y-2' : ''}`}
+                className="p-6 rounded-2xl border border-slate-200/90 bg-white shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] hover:border-amber-400 hover:shadow-[0_15px_30px_-5px_rgba(217,119,6,0.12)] transition-all duration-300 flex flex-col justify-between group"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br from-neon-purple/20 to-transparent transition-opacity duration-500 rounded-xl ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}></div>
-
-                <div className="relative z-10">
-                  <div className={`w-16 h-16 rounded-lg bg-void border flex items-center justify-center text-neon-purple mb-6 transition-all duration-300 shadow-[0_0_20px_rgba(139,92,246,0.15)] ${isActive
-                    ? 'scale-110 border-neon-purple/50'
-                    : 'border-white/10 group-hover:scale-110 group-hover:border-neon-purple/50'
-                    }`}>
-                    {iconMap[service.icon]}
+                <div>
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 bg-amber-500/10 border border-amber-500/20 text-amber-600 group-hover:scale-105 transition-transform">
+                    <Icon className="w-6 h-6" />
                   </div>
 
-                  <h3 className="text-xl font-bold text-white mb-3 font-display">
+                  <h3 className="text-base font-bold mb-2 text-slate-900 group-hover:text-amber-600 transition-colors">
                     {service.title}
                   </h3>
 
-                  <p className="text-slate-400 text-sm leading-relaxed">
+                  <p className="text-xs mb-6 leading-relaxed text-slate-600">
                     {service.description}
                   </p>
+
+                  <div className="space-y-2 mb-8">
+                    {service.features.map((feat, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center gap-2 text-xs text-slate-700"
+                      >
+                        <Check className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+
+                <button
+                  type="button"
+                  onClick={() => handleServiceClick(service.title)}
+                  className="w-full py-2.5 px-3.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-amber-400 hover:text-slate-950 hover:border-amber-400 text-slate-800 text-xs font-mono font-medium transition-all duration-200 cursor-pointer shadow-sm text-center"
+                >
+                  Choose Service
+                </button>
               </div>
             );
           })}

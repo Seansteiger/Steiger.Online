@@ -1,6 +1,8 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Code2, Instagram, MessageSquare, ArrowRight } from 'lucide-react';
-import { Section } from '../types';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Section } from '@/types';
 
 interface NavbarProps {
   activeSection: Section;
@@ -10,158 +12,139 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setIsScrolled(currentScrollY > 50);
-
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-      setLastScrollY(currentScrollY);
+      setIsScrolled(window.scrollY > 20);
     };
-
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
-
-  // Lock scroll when mobile menu is open
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [mobileMenuOpen]);
+  }, []);
 
   const navLinks = [
-    { id: Section.HOME, label: 'Home' },
-    { id: Section.SERVICES, label: 'Services' },
-    { id: Section.PRICING, label: 'Pricing' },
-    { id: Section.PORTFOLIO, label: 'Our Work' },
-    { id: Section.CONTACT, label: 'Contact Us' },
+    { label: 'Work', section: Section.PORTFOLIO },
+    { label: 'Services', section: Section.SERVICES },
+    { label: 'Pricing', section: Section.PRICING },
+    { label: 'How It Works', section: Section.PROCESS },
+    { label: 'FAQ', section: Section.FAQ },
   ];
 
   return (
     <>
-      <nav
-        className={`fixed left-0 w-full z-40 transition-all duration-500 transform ${isVisible ? 'translate-y-0' : '-translate-y-full'
-          } ${isScrolled ? 'glass-panel py-3 shadow-lg' : 'bg-transparent py-5'
-          }`}
-        style={{ top: '0' }}
+      <header
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 px-4 sm:px-8 ${
+          isScrolled
+            ? 'py-3.5 bg-[#fbfaf7]/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm'
+            : 'py-5'
+        }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo */}
-          <div
-            className="flex items-center gap-2 cursor-pointer group"
+          <button
             onClick={() => scrollToSection(Section.HOME)}
+            className="flex items-center gap-2 text-left focus:outline-none cursor-pointer"
           >
-            <div className="relative">
-              <div className="absolute inset-0 bg-neon-cyan blur-lg opacity-20 group-hover:opacity-60 transition-opacity"></div>
-              <Code2 className="w-7 h-7 md:w-8 md:h-8 text-neon-cyan relative z-10" />
-            </div>
-            <span className="font-display font-bold text-xl md:text-2xl tracking-tighter text-white">
-              Steiger.Online
+            <span className="font-bold text-base tracking-tight text-slate-900">
+              STEIGER<span className="text-amber-600">.ONLINE</span>
             </span>
-          </div>
+          </button>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => scrollToSection(link.id)}
-                className={`text-xs font-medium tracking-[0.2em] uppercase transition-all duration-300 relative group ${activeSection === link.id ? 'text-neon-cyan' : 'text-slate-400 hover:text-white'
+          {/* Clean Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-7">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.section;
+              return (
+                <button
+                  key={link.section}
+                  onClick={() => scrollToSection(link.section)}
+                  className={`text-xs font-mono transition-colors cursor-pointer ${
+                    isActive
+                      ? 'text-amber-600 font-bold'
+                      : 'text-slate-600 hover:text-slate-900 font-medium'
                   }`}
-              >
-                {link.label}
-                <span className={`absolute -bottom-1 left-0 h-[1.5px] bg-neon-cyan transition-all duration-300 ${activeSection === link.id ? 'w-full' : 'w-0 group-hover:w-full'
-                  }`}></span>
-              </button>
-            ))}
+                >
+                  {link.label}
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* Right CTA */}
+          <div className="flex items-center gap-3">
             <button
               onClick={() => scrollToSection(Section.CONTACT)}
-              className="ml-4 px-6 py-2 bg-neon-cyan/5 border border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan hover:text-black transition-all duration-300 rounded-sm font-display font-bold text-[10px] tracking-[0.2em] uppercase"
+              className="hidden sm:flex px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold font-mono text-xs transition-all items-center gap-1.5 active:scale-95 shadow-sm cursor-pointer"
             >
-              Start Project
+              <span>Get a Quote</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
-          </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden w-10 h-10 flex items-center justify-center text-white glass-panel rounded-full border border-white/10 active:scale-95 transition-transform"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Refined Compact Mobile Menu Drawer */}
-      <div 
-        className={`fixed inset-y-0 right-0 z-50 w-[280px] h-fit bg-void/98 backdrop-blur-2xl border-l border-b border-white/5 transition-transform duration-500 transform ${
-          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        } md:hidden flex flex-col shadow-[-10px_0_30px_rgba(0,0,0,0.5)] rounded-bl-3xl`}
-      >
-        {/* Menu Header */}
-        <div className="p-6 flex justify-between items-center bg-white/5">
-          <div className="flex items-center gap-2">
-            <Code2 className="w-5 h-5 text-neon-cyan" />
-            <span className="font-display font-bold text-base tracking-tighter text-white">Menu</span>
-          </div>
-          <button 
-            onClick={() => setMobileMenuOpen(false)}
-            className="w-8 h-8 flex items-center justify-center text-white/60 hover:text-white rounded-full border border-white/5 bg-white/5"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-
-        {/* Menu Links */}
-        <div className="flex-1 flex flex-col py-8 px-6 gap-6">
-          {navLinks.map((link, index) => (
+            {/* Mobile Menu Button */}
             <button
-              key={link.id}
-              onClick={() => {
-                scrollToSection(link.id);
-                setMobileMenuOpen(false);
-              }}
-              className={`group flex items-center justify-between text-lg font-display font-bold tracking-wider text-white/50 hover:text-neon-cyan transition-all duration-300 transform ${
-                mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
-              }`}
-              style={{ transitionDelay: `${index * 50}ms` }}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-lg text-slate-700 hover:bg-black/5 cursor-pointer"
+              aria-label="Toggle menu"
             >
-              <span>{link.label}</span>
-              <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-neon-cyan" />
-            </button>
-          ))}
-          
-          <div className="mt-4 pt-8 border-t border-white/5">
-            <button
-               onClick={() => {
-                scrollToSection(Section.CONTACT);
-                setMobileMenuOpen(false);
-              }}
-              className="w-full py-4 bg-neon-cyan/10 border border-neon-cyan/50 text-neon-cyan font-display font-bold tracking-[0.2em] uppercase rounded-sm flex items-center justify-center gap-2 hover:bg-neon-cyan hover:text-black transition-all shadow-[0_0_15px_rgba(6,182,212,0.2)] text-xs"
-            >
-              Start Project 
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
+      </header>
 
-      </div>
-
-      {/* Backdrop for Drawer */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div 
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden animate-in fade-in duration-300"
-          onClick={() => setMobileMenuOpen(false)}
-        />
+        <div className="fixed inset-0 z-50 md:hidden">
+          <div
+            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          <div className="fixed top-0 right-0 bottom-0 w-72 bg-white border-l border-slate-200 p-6 flex flex-col justify-between z-10 shadow-2xl">
+            <div>
+              <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+                <span className="font-bold text-sm text-slate-900">
+                  STEIGER<span className="text-amber-600">.ONLINE</span>
+                </span>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-1 rounded-md text-slate-400 hover:text-slate-600 cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                {navLinks.map((link) => (
+                  <button
+                    key={link.section}
+                    onClick={() => {
+                      scrollToSection(link.section);
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`text-left text-sm py-2 font-mono transition-colors cursor-pointer ${
+                      activeSection === link.section
+                        ? 'text-amber-600 font-bold'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    {link.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-6 border-t border-slate-100">
+              <button
+                onClick={() => {
+                  scrollToSection(Section.CONTACT);
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs uppercase tracking-wider text-center shadow-sm cursor-pointer"
+              >
+                Get a Quote
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

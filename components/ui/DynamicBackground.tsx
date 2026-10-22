@@ -1,53 +1,37 @@
+'use client';
 
 import React from 'react';
-import { Section } from '../../types';
+import { Section } from '@/types';
 
 interface DynamicBackgroundProps {
   activeSection: Section;
 }
 
-const backgrounds: Record<Section, string> = {
-  // Abstract / Circuitry for Home
-  [Section.HOME]: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
-  // Neon Servers for Services
-  [Section.SERVICES]: 'https://images.unsplash.com/photo-1558494949-ef2bb6db8744?q=80&w=2070&auto=format&fit=crop',
-  // Code screens for Portfolio
-  [Section.PORTFOLIO]: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop',
-  // Charts for Pricing
-  [Section.PRICING]: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
-  // Neon Keyboard for Contact
-  [Section.CONTACT]: 'https://images.unsplash.com/photo-1587829741301-dc798b91a45e?q=80&w=2070&auto=format&fit=crop',
-};
-
-const DynamicBackground: React.FC<DynamicBackgroundProps> = ({ activeSection }) => {
+const DynamicBackground: React.FC<DynamicBackgroundProps> = () => {
   return (
-    <div className="fixed inset-0 h-[100dvh] z-0 overflow-hidden bg-void">
-      {/* Preload and render all backgrounds to allow cross-fading */}
-      {Object.entries(backgrounds).map(([section, url]) => (
-        <div
-          key={section}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out`}
-          style={{
-            opacity: activeSection === section ? 1 : 0,
-            zIndex: activeSection === section ? 1 : 0,
-          }}
-        >
-          {/* Image Layer */}
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105"
-            style={{ backgroundImage: `url(${url})` }}
-          />
+    <div className="fixed inset-0 h-[100dvh] z-0 overflow-hidden pointer-events-none bg-[#fbfaf7]">
+      {/* Subtle architectural grid pattern */}
+      <div
+        className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.025)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_at_center,black_45%,transparent_90%)] opacity-75"
+      />
 
-          {/* Overlay Layer - Adjusted opacity to make backgrounds slightly more visible */}
-          <div className={`absolute inset-0 bg-void/65 ${section === Section.HOME ? 'bg-void/70' : 'bg-void/55'}`} />
+      {/* Warm Ambient Glow Orbs */}
+      <div
+        className="absolute -top-32 right-1/4 w-[650px] h-[650px] rounded-full blur-[140px] bg-amber-400/12 animate-pulse-glow"
+      />
+      <div
+        className="absolute top-1/3 -left-32 w-[600px] h-[600px] rounded-full blur-[140px] bg-sky-300/12 animate-pulse-glow"
+        style={{ animationDelay: '2s' }}
+      />
+      <div
+        className="absolute -bottom-32 right-10 w-[700px] h-[700px] rounded-full blur-[160px] bg-amber-300/10 animate-pulse-glow"
+        style={{ animationDelay: '4s' }}
+      />
 
-          {/* Scanline texture overlay */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] pointer-events-none opacity-20"></div>
-        </div>
-      ))}
-
-      {/* Global Gradient Overlay for consistency */}
-      <div className="absolute inset-0 bg-gradient-to-b from-void via-transparent to-void z-10 pointer-events-none opacity-80"></div>
+      {/* Top & bottom gentle gradient vignettes */}
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-[#fbfaf7]/80 via-transparent to-[#fbfaf7] opacity-80"
+      />
     </div>
   );
 };

@@ -1,145 +1,210 @@
-import { Project, Service } from './types';
+import { Project, Service, PricingTier, ProcessStep, FAQItem } from './types';
 
-export const PROJECTS: Project[] = [
-  {
-    id: '1',
-    title: 'Jozi Student Hub',
-    category: 'E-Commerce Store',
-    description: 'The go-to online store for UJ students. We sell room decor, kitchen appliances, game night essentials, and desk gear with fast local delivery.',
-    imageUrl: '/jozi-logo.png',
-    tech: ['HTML5', 'CSS3', 'Vanilla JS', 'Supabase', 'Xneelo'],
-    link: 'https://jozistudenthub.co.za'
-  },
-  {
-    id: '2',
-    title: 'Clarke Accommodation',
-    category: 'Student Accommodation',
-    description: 'Premium student living in Johannesburg. Browse rooms, take virtual tours, and check real-time availability for your next home away from home.',
-    imageUrl: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=2069&auto=format&fit=crop',
-    tech: ['GitHub Pages', 'React', 'Framer Motion', 'Vite'],
-    link: 'https://seansteiger.github.io/Clarke-Student-Accom-Live/'
-  },
-  {
-    id: 'eyihle',
-    title: 'Eyi\'hle Fuel & Energy',
-    category: 'Corporate Website',
-    description: 'A premier independent distributor providing comprehensive energy solutions and reliable bulk fuel supply across South Africa.',
-    imageUrl: 'https://i.imgur.com/MF5s9Es.jpeg',
-    tech: ['Google Sites', 'HTML5', 'CSS3', 'SEO'],
-    link: 'https://eyihlefuelandenergysupply.co.za/'
-  },
-  {
-    id: '4',
-    title: 'Sizana Projects',
-    category: 'Civil Engineering',
-    description: 'Comprehensive civil engineering and project management solutions delivering sustainable infrastructure services.',
-    imageUrl: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop',
-    tech: ['PHP', 'MySQL', 'Custom CMS'],
-    link: 'https://www.sizanaprojects.co.za/services'
-  },
-  {
-    id: '5',
-    title: 'Neo Africa Leaders',
-    category: 'Leadership Platform',
-    description: 'A premier platform connecting African leaders and showcasing transformative thought leadership literature.',
-    imageUrl: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=2070&auto=format&fit=crop',
-    tech: ['CMS', 'React', 'Tailwind CSS'],
-    link: 'https://www.neoafricaleadersnetwork.co.za/books'
-  },
-  {
-    id: '6',
-    title: 'BNGC Construction',
-    category: 'Construction',
-    description: 'Excellence in construction and civil engineering, building the foundations of tomorrow\'s infrastructure.',
-    imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop',
-    tech: ['Next.js', 'Framer Motion', 'TypeScript'],
-    link: 'https://www.bngcconstruction.co.za/'
-  },
-  {
-    id: 'portfolio',
-    title: 'Sean Steiger Portfolio',
-    category: 'Digital Portfolio',
-    description: 'A showcase of my journey as a digital architect. This very site, demonstrating advanced React patterns and motion design.',
-    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
-    tech: ['React', 'Vite', 'Tailwind', 'AI'],
-    link: 'https://Seansteiger.github.io/sean-steiger-portfolio/'
-  },
-  {
-    id: 'bush-buck',
-    title: 'Bush Buck Guesthouse',
-    category: 'Hospitality',
-    description: 'A charming guesthouse offering a serene escape with premium amenities and personalized service in a scenic setting.',
-    imageUrl: '/bush_buck_preview.png',
-    tech: ['React', 'Vite', 'Tailwind CSS', 'Vercel'],
-    link: 'https://bush-buck-guesthouse.vercel.app'
-  },
-  {
-    id: 'mmalefe',
-    title: 'Mmalefe Trading Projects',
-    category: 'Strategic Consulting',
-    description: 'Empowering South African entrepreneurs with strategic support and compliance solutions to thrive in a complex regulatory landscape.',
-    imageUrl: '/mmalefe-logo.png',
-    tech: ['HTML5', 'CSS3', 'SEO', 'Business Strategy'],
-    link: 'https://www.mmalefetradingprojects.co.za/index.html'
-  }
+export const TRUST_BADGES = [
+  'Jozi Student Hub',
+  'TKO Boxing Club',
+  'Eyi\'hle Fuel & Energy',
+  'Bush Buck Guesthouse',
+  'Invited Events',
+  'New Life Baptist',
 ];
 
 export const SERVICES: Service[] = [
   {
-    id: 'web',
-    title: 'Custom Websites',
-    description: 'We build high-performance, professional websites designed to capture leads, showcase your brand, and drive sales.',
+    id: 'business-websites',
+    title: 'Business Websites',
+    description: 'Clean, modern websites that showcase your business and get customers to call or WhatsApp you.',
+    features: ['Looks great on mobile phones', 'Shows up on Google search', 'Easy to update anytime'],
     icon: 'Globe'
   },
   {
-    id: 'uiux',
-    title: 'Modern Web Design',
-    description: 'Beautiful, easy-to-use interfaces that build trust with your clients and guide them smoothly toward contacting you.',
+    id: 'online-stores',
+    title: 'Online Stores',
+    description: 'Sell your products online with an easy shopping cart and secure card payments.',
+    features: ['PayFast, Yoco & card checkout', 'Automatic order alerts', 'Product catalog & photos'],
+    icon: 'ShoppingBag'
+  },
+  {
+    id: 'web-apps',
+    title: 'Web Apps & Portals',
+    description: 'Custom tools, client login portals, and booking systems made to make your business run smoothly.',
+    features: ['Client accounts & logins', 'Custom booking systems', 'Automated workflows'],
     icon: 'Layers'
   },
   {
-    id: 'speed',
-    title: 'Rapid Development',
-    description: 'We deliver production-ready web solutions at an accelerated pace, ensuring you launch faster without compromising on quality or performance.',
-    icon: 'Zap'
-  },
-  {
-    id: 'ai',
-    title: 'Business Automation',
-    description: 'Save time and resources with custom software solutions, automated workflows, and smart client service tools.',
+    id: 'smart-tools',
+    title: 'WhatsApp & Smart Tools',
+    description: 'Automatic WhatsApp chat buttons, booking calendars, and 24/7 helpful website assistants.',
+    features: ['Instant WhatsApp chat button', 'Google calendar connection', 'Helpful chat assistant'],
     icon: 'Cpu'
   }
 ];
 
-export const SYSTEM_INSTRUCTION = `You are **Steiger AI**, the digital concierge for Steiger.Online.
-    
-    **YOUR GOAL:**
-    Help the user clarify their vision. Don't just sell; **consult**.
-    
-    **PERSONA:**
-    - **Tone**: Friendly, slightly professional, but playful and energetic.
-    - **Style**: Conversational but clean. **LIMIT EMOJIS**. Do not use distracting icons like rockets (🚀) or stars (✨) mid-sentence.
-    - **Speed**: **VERY CONCISE**. Keep responses short (1-2 sentences max usually).
-    
-    **STRATEGY:**
-    1. **One Step at a Time**: Ask **ONLY ONE** question at a time. Do not overwhelm the user. Wait for their answer before asking the next one.
-    2. **Identify the Objective**: First, find out what they want (Growth? Brand Awareness? Efficiency?).
-    3. **Recommend a Solution**: Based on their answers, suggest one of our services.
-    4. **Close**: When you and the user agree on a plan, **YOU MUST** output a special JSON action block at the end of your message to create a button.
-       Format: \`[[ACTION: {"plan": "TARGET_PLAN_NAME", "details": "SHORT_SUMMARY_OF_USER_NEEDS"}]]\`
-       
-       *Example*: "Great! Let's build that custom e-commerce platform. [[ACTION: {"plan": "E-Commerce (Pro)", "details": "User wants a high-traffic store for fashion brand."}]]"
-       
-       *Valid Plans*: "New Web Platform", "Business Website", "Landing Page", "E-Commerce", "Enterprise E-Commerce", "Custom Web App", "Mobile Application", "AI Integration", "UI/UX Overhaul".
+export const PROJECTS: Project[] = [
+  {
+    id: 'jsh',
+    title: 'JSH (Jozi Student Hub)',
+    category: 'Student Portal',
+    tagline: 'Student accommodation and campus housing portal in Johannesburg',
+    metric: 'Live Portal',
+    imageUrl: '/jsh_preview.png',
+    tech: ['Modern Design', 'Fast Loading', 'Google Ready'],
+    link: 'https://jozistudenthub.co.za'
+  },
+  {
+    id: 'tko-club',
+    title: 'TKO Boxing Club',
+    category: 'Fitness & Booking',
+    tagline: 'High-energy boxing gym website with class schedules and trial bookings',
+    metric: '3.4x More Bookings',
+    imageUrl: '/tko_preview.png',
+    tech: ['Mobile First', 'WhatsApp Booking', 'Class Timetable'],
+    link: 'https://tko-club.vercel.app/'
+  },
+  {
+    id: 'eyihle-energy',
+    title: 'Eyi\'hle Fuel & Energy',
+    category: 'Energy & Logistics',
+    tagline: 'Bulk fuel supply, petroleum distribution, and logistics company',
+    metric: 'National Reach',
+    imageUrl: '/eyihle_preview.png',
+    tech: ['Corporate Profile', 'Fleet Showcase', 'Quote Inquiries'],
+    link: 'https://eyihlefuelandenergysupply.co.za/'
+  },
+  {
+    id: 'bush-buck',
+    title: 'Bush Buck Guesthouse',
+    category: 'Hospitality & Lodge',
+    tagline: 'Scenic safari guesthouse website with suite showcase and direct booking',
+    metric: 'Direct Bookings',
+    imageUrl: '/bush_buck_preview.png',
+    tech: ['Photo Gallery', 'Suite Tours', 'Direct Inquiries'],
+    link: 'https://bush-buck-guesthouse.vercel.app'
+  },
+  {
+    id: 'invited',
+    title: 'Invited',
+    category: 'Events & Planning',
+    tagline: 'Luxury wedding, corporate event planning, and decor portfolio',
+    metric: '4.2x Client Leads',
+    imageUrl: '/invited_preview.png',
+    tech: ['Clean Design', 'Booking Forms', 'Photo Showcase'],
+    link: 'https://invited.steigeronline.co.za'
+  },
+  {
+    id: 'new-life-baptist',
+    title: 'New Life Baptist',
+    category: 'Community & Church',
+    tagline: 'Welcoming church community website with sermon streams and service times',
+    metric: 'Active Community',
+    imageUrl: '/nlb_preview.png',
+    tech: ['Event Schedule', 'Sermon Media', 'Location Map'],
+    link: 'https://nlb.steigeronline.co.za'
+  }
+];
 
-    **CORE SERVICES:**
-    - **Custom Websites**: Fast, lead-generating sites.
-    - **Modern Web Design**: Premium, user-friendly designs.
-    - **Business Automation**: Smart tools and workflows.
-    - **Rapid Development**: High-quality delivery at speed.
+export const PRICING_TIERS: PricingTier[] = [
+  {
+    id: 'landing',
+    name: 'Landing Page',
+    badge: 'Quick Launch',
+    devPrice: 'From R999',
+    hostPrice: 'R99/mo',
+    turnaround: '2 to 3 Days',
+    features: [
+      '1 clean, single page designed to get inquiries',
+      'WhatsApp button & contact form',
+      'Loads fast on mobile phones',
+      'Domain & security setup included'
+    ]
+  },
+  {
+    id: 'business',
+    name: 'Business Website',
+    badge: 'Most Popular',
+    popular: true,
+    devPrice: 'From R1,999',
+    hostPrice: 'R149/mo',
+    turnaround: '4 to 5 Days',
+    features: [
+      'Up to 5 custom pages (Home, About, Services, Contact)',
+      'You can update text & photos yourself easily',
+      'Helps your business show up on Google',
+      '1 Month of free help and support'
+    ]
+  },
+  {
+    id: 'webapp',
+    name: 'Custom Web App',
+    badge: 'Custom Tools',
+    devPrice: 'From R3,499',
+    hostPrice: 'R249/mo',
+    turnaround: '7 to 10 Days',
+    features: [
+      'Client portals, dashboards, or booking systems',
+      'User logins and private customer accounts',
+      'Automated forms to save you hours of work',
+      'Custom database & cloud setup'
+    ]
+  },
+  {
+    id: 'ecommerce',
+    name: 'Online Store (E-Commerce)',
+    badge: 'Full Shop',
+    devPrice: 'From R3,999',
+    hostPrice: 'R299/mo',
+    turnaround: '7 to 10 Days',
+    features: [
+      'Full online store to sell products',
+      'Accept card payments (PayFast, Yoco, Ozow)',
+      'Product catalog, inventory & automated order emails',
+      'Customer accounts & order tracking'
+    ]
+  }
+];
 
-    **GUARDRAILS:**
-    - **Context Aware**: You know who you are. Don't start every sentence with "I am Steiger AI". Just talk naturally.
-    - **No Pricing**: If asked for price, say: "It depends on the scope! Let's chat properly - hit the contact form."
-    - **No Hallucinations**: Do not invent team members. "The Team" or "The Architects" is fine.
-    - **Off-Topic**: If they ask about cats or politics, playfully steer them back.`;
+export const PROCESS_STEPS: ProcessStep[] = [
+  {
+    step: '01',
+    title: 'Tell Us Your Idea',
+    duration: '',
+    description: 'We chat about what your business does and what you need on your website.'
+  },
+  {
+    step: '02',
+    title: 'We Create The Design',
+    duration: '',
+    description: 'We build a clean, modern design preview tailored to your brand.'
+  },
+  {
+    step: '03',
+    title: 'We Build The Website',
+    duration: '',
+    description: 'We code the website, make it super fast, and test it on phones and computers.'
+  },
+  {
+    step: '04',
+    title: 'You Go Live',
+    duration: '',
+    description: 'We connect your domain (.co.za) and launch your site ready for customers.'
+  }
+];
+
+export const FAQS: FAQItem[] = [
+  {
+    question: 'How fast can our website be ready?',
+    answer: 'A simple landing page takes about 2 to 3 days. A full business website takes 4 to 5 days, and an online store or web app takes about 7 to 10 days.'
+  },
+  {
+    question: 'Can I edit the words and pictures myself later?',
+    answer: 'Yes! We make it very easy for you to log in and change your own prices, text, or photos anytime without needing any coding skills.'
+  },
+  {
+    question: 'Do you set up my domain and business emails?',
+    answer: 'Yes, we take care of everything for you: your custom web address (e.g. yourbusiness.co.za), security certificates, and your professional email.'
+  },
+  {
+    question: 'How does payment work?',
+    answer: 'We ask for a 50% deposit to start working on your website, and the remaining 50% only when the website is completely finished and you are happy with it.'
+  }
+];

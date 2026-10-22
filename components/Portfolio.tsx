@@ -1,180 +1,91 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ExternalLink, Github } from 'lucide-react';
-import { PROJECTS } from '../constants';
+'use client';
+
+import React from 'react';
+import { PROJECTS } from '@/constants';
+import { ArrowUpRight } from 'lucide-react';
 
 const Portfolio: React.FC = () => {
-  const [activeId, setActiveId] = useState<string | null>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  const [isExpanded, setIsExpanded] = useState(false);
-  const visibleProjects = isExpanded ? PROJECTS : PROJECTS.slice(0, 3);
-
-  useEffect(() => {
-    // Disconnect previous observer if it exists
-    if (observerRef.current) {
-      observerRef.current.disconnect();
-    }
-
-    // Initialize IntersectionObserver to track scroll position
-    observerRef.current = new IntersectionObserver((entries) => {
-      // Check for mobile breakpoint (768px)
-      const isMobile = window.matchMedia('(max-width: 768px)').matches;
-
-      // On Desktop, do NOT use JS scroll activation (let CSS hover handle it)
-      if (!isMobile) {
-        if (activeId !== null) setActiveId(null);
-        return;
-      }
-
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveId(entry.target.getAttribute('data-id'));
-        } else {
-          // Clear active ID when it leaves the focus area (optional, but keeps it distinct)
-          const targetId = entry.target.getAttribute('data-id');
-          if (targetId) {
-            setActiveId(prev => (prev === targetId ? null : prev));
-          }
-        }
-      });
-    }, {
-      // Use the config that works in Services section (and worked previously here)
-      threshold: 0.65,
-      rootMargin: "0px 0px -100px 0px"
-    });
-
-    // Observe only the currently visible projects
-    cardsRef.current.forEach(el => {
-      if (el) observerRef.current?.observe(el);
-    });
-
-    // Cleanup function to disconnect observer when component unmounts or dependencies change
-    return () => observerRef.current?.disconnect();
-  }, [visibleProjects]); // Re-run observer when list of visible projects changes
-
   return (
-    <section id="portfolio" className="py-24 relative overflow-hidden bg-void/30">
-      {/* Background accent */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-neon-cyan/5 to-transparent pointer-events-none"></div>
-
+    <section id="portfolio" className="py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-              OUR RECENT <span className="text-neon-cyan">WORK</span>
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-neon-cyan to-transparent"></div>
-          </div>
-          <p className="text-slate-400 max-w-md text-right hidden md:block">
-            A curated selection of our most ambitious projects, engineered for impact and scale.
+        <div className="mb-12">
+          <span className="text-xs font-mono uppercase tracking-widest block mb-2 text-amber-600 font-bold">
+            Our Work
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+            Recent Websites We Built.
+          </h2>
+          <p className="text-sm mt-2 text-slate-600 max-w-xl">
+            Real South African businesses and organisations we have designed and launched.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-nosnippet="true">
-          {visibleProjects.map((project, index) => {
-            const isActive = activeId === project.id;
-
-            return (
-              <div
-                key={project.id}
-                ref={el => cardsRef.current[index] = el}
-                data-id={project.id}
-                tabIndex={0}
-                className={`group relative rounded-xl overflow-hidden bg-slate-900 border transition-all duration-500 focus:outline-none ${isActive
-                  ? 'border-neon-cyan/50 shadow-[0_0_30px_rgba(6,182,212,0.15)]'
-                  : 'border-white/5 hover:border-neon-cyan/50 focus-within:border-neon-cyan/50'
-                  }`}
-              >
-                {/* Image Container */}
-                <div className="relative h-64 overflow-hidden">
-                  {project.link ? (
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full focus:outline-none">
-                      <div className={`absolute inset-0 transition-colors duration-500 z-10 w-full h-full ${isActive
-                        ? 'bg-slate-900/20'
-                        : 'bg-slate-900/50 group-hover:bg-slate-900/20 group-focus-within:bg-slate-900/20'
-                        }`}></div>
-                      <img
-                        src={project.imageUrl}
-                        alt={project.title}
-                        className={`w-full h-full object-cover transition-transform duration-700 ease-in-out ${isActive
-                          ? 'scale-110 grayscale-0'
-                          : 'grayscale group-hover:scale-110 group-focus-within:scale-110 group-hover:grayscale-0 group-focus-within:grayscale-0'
-                          }`}
-                      />
-                    </a>
-                  ) : (
-                    <>
-                      <div className={`absolute inset-0 transition-colors duration-500 z-10 ${isActive
-                        ? 'bg-slate-900/20'
-                        : 'bg-slate-900/50 group-hover:bg-slate-900/20 group-focus-within:bg-slate-900/20'
-                        }`}></div>
-                      <img
-                        src={project.imageUrl}
-                        alt={project.title}
-                        className={`w-full h-full object-cover transition-transform duration-700 ease-in-out ${isActive
-                          ? 'scale-110 grayscale-0'
-                          : 'grayscale group-hover:scale-110 group-focus-within:scale-110 group-hover:grayscale-0 group-focus-within:grayscale-0'
-                          }`}
-                      />
-                    </>
-                  )}
-
-                  {/* Category Tag */}
-                  <div className="absolute top-4 left-4 z-20 px-3 py-1 bg-black/80 backdrop-blur text-neon-cyan text-xs font-bold uppercase tracking-wider border border-neon-cyan/20 pointer-events-none">
+        {/* 6-Project Showcase Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {PROJECTS.map((project) => (
+            <div
+              key={project.id}
+              className="group rounded-2xl border border-slate-200/90 bg-white shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] hover:border-amber-400 hover:shadow-[0_18px_35px_-5px_rgba(217,119,6,0.14)] transition-all duration-300 overflow-hidden flex flex-col justify-between"
+            >
+              <div>
+                {/* Visual Preview displaying home page and top logo clearly */}
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-100 border-b border-slate-200/70">
+                  <img
+                    src={project.imageUrl}
+                    alt={project.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 border border-slate-200 text-slate-800 text-[10px] font-mono uppercase tracking-wider shadow-sm backdrop-blur-sm">
                     {project.category}
+                  </div>
+                  <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-amber-400 text-slate-950 text-[11px] font-mono font-bold shadow-sm">
+                    {project.metric}
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="p-8 relative">
-                  {project.link && (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`absolute top-0 right-8 -translate-y-1/2 w-12 h-12 bg-neon-cyan text-void rounded-full flex items-center justify-center transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.6)] z-20 cursor-pointer hover:scale-110 focus:outline-none ${isActive
-                        ? 'opacity-100 translate-y-[-50%]'
-                        : 'opacity-0 translate-y-4 group-hover:opacity-100 group-focus-within:opacity-100 group-hover:translate-y-[-50%]'
-                        }`}
-                    >
-                      <ExternalLink className="w-5 h-5" />
-                    </a>
-                  )}
-
-                  <h3 className={`text-2xl font-display font-bold mb-2 transition-colors ${isActive
-                    ? 'text-neon-cyan'
-                    : 'text-white group-hover:text-neon-cyan group-focus-within:text-neon-cyan'
-                    }`}>
+                {/* Project Info */}
+                <div className="p-6">
+                  <h3 className="text-lg font-bold mb-1.5 text-slate-900 group-hover:text-amber-600 transition-colors">
                     {project.title}
                   </h3>
-
-                  <p className="text-slate-400 mb-6 text-sm">
-                    {project.description}
+                  <p className="text-xs mb-4 leading-relaxed text-slate-600">
+                    {project.tagline}
                   </p>
 
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((t) => (
-                      <span key={t} className="px-2 py-1 bg-white/5 border border-white/10 rounded text-xs text-slate-300">
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tech.map((t, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2.5 py-0.5 rounded text-[10px] font-mono bg-slate-50 text-slate-700 border border-slate-200"
+                      >
                         {t}
                       </span>
                     ))}
                   </div>
                 </div>
               </div>
-            );
-          })}
-        </div>
 
-        <div className="mt-16 text-center">
-          {PROJECTS.length > 3 && (
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="text-neon-cyan font-bold font-display uppercase tracking-widest text-sm hover:text-white transition-colors border-b border-neon-cyan pb-1"
-            >
-              {isExpanded ? 'Show Less' : 'View Full Archive'}
-            </button>
-          )}
+              {/* Action Button */}
+              <div className="p-6 pt-0">
+                {project.link ? (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 px-3.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-amber-400 hover:text-slate-950 hover:border-amber-400 text-slate-800 text-xs font-mono font-medium flex items-center justify-center gap-1.5 transition-all duration-200 shadow-sm"
+                  >
+                    <span>Visit Live Website</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+                ) : (
+                  <span className="text-xs font-mono block text-center py-2 text-slate-400">
+                    Private Client Site
+                  </span>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
