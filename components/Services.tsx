@@ -28,49 +28,50 @@ const Services: React.FC<ServicesProps> = ({ onSelectService, scrollToSection })
   };
 
   return (
-    <section id="services" className="py-24 relative overflow-hidden bg-[#fbfaf7]">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="mb-12">
+    <section id="services" className="py-16 sm:py-24 relative overflow-hidden bg-[#fbfaf7]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="mb-8 sm:mb-12">
           <span className="text-xs font-mono uppercase tracking-widest block mb-2 text-amber-600 font-bold">
             What We Do
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-slate-900">
             Services Built To Help You Grow.
           </h2>
-          <p className="text-sm mt-2 text-slate-600 max-w-xl">
+          <p className="text-xs sm:text-sm mt-1 sm:mt-2 text-slate-600 max-w-xl">
             Everything you need for a strong online presence, delivered on time with no headaches.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 2-column grid on mobile, 4-column on desktop */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
           {SERVICES.map((service) => {
             const Icon = iconMap[service.icon] || Globe;
             return (
               <div
                 key={service.id}
-                className="p-6 rounded-2xl border border-slate-200/90 bg-white shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] hover:border-amber-400 hover:shadow-[0_15px_30px_-5px_rgba(217,119,6,0.12)] transition-all duration-300 flex flex-col justify-between group"
+                className="p-3.5 sm:p-6 rounded-xl sm:rounded-2xl border border-slate-200/90 bg-white shadow-[0_6px_18px_-4px_rgba(0,0,0,0.04)] sm:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05)] hover:border-amber-400 hover:shadow-[0_15px_30px_-5px_rgba(217,119,6,0.12)] transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 bg-amber-500/10 border border-amber-500/20 text-amber-600 group-hover:scale-105 transition-transform">
-                    <Icon className="w-6 h-6" />
+                  <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-5 bg-amber-500/10 border border-amber-500/20 text-amber-600 group-hover:scale-105 transition-transform">
+                    <Icon className="w-4 h-4 sm:w-6 sm:h-6" />
                   </div>
 
-                  <h3 className="text-base font-bold mb-2 text-slate-900 group-hover:text-amber-600 transition-colors">
+                  <h3 className="text-sm sm:text-base font-bold mb-1 sm:mb-2 text-slate-900 group-hover:text-amber-600 transition-colors leading-tight">
                     {service.title}
                   </h3>
 
-                  <p className="text-xs mb-6 leading-relaxed text-slate-600">
+                  <p className="text-[11px] sm:text-xs mb-3 sm:mb-6 leading-relaxed text-slate-600">
                     {service.description}
                   </p>
 
-                  <div className="space-y-2 mb-8">
+                  <div className="space-y-1.5 sm:space-y-2 mb-4 sm:mb-8">
                     {service.features.map((feat, idx) => (
                       <div
                         key={idx}
-                        className="flex items-center gap-2 text-xs text-slate-700"
+                        className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-700"
                       >
-                        <Check className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                        <span>{feat}</span>
+                        <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-600 shrink-0" />
+                        <span className="leading-snug">{feat}</span>
                       </div>
                     ))}
                   </div>
@@ -79,7 +80,7 @@ const Services: React.FC<ServicesProps> = ({ onSelectService, scrollToSection })
                 <button
                   type="button"
                   onClick={() => handleServiceClick(service.title)}
-                  className="w-full py-2.5 px-3.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-amber-400 hover:text-slate-950 hover:border-amber-400 text-slate-800 text-xs font-mono font-medium transition-all duration-200 cursor-pointer shadow-sm text-center"
+                  className="w-full py-2 sm:py-2.5 px-2 sm:px-3.5 rounded-lg sm:rounded-xl border border-slate-200 bg-slate-50 hover:bg-amber-400 hover:text-slate-950 hover:border-amber-400 text-slate-800 text-[11px] sm:text-xs font-mono font-medium transition-all duration-200 cursor-pointer shadow-sm text-center"
                 >
                   Choose Service
                 </button>
