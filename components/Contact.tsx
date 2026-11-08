@@ -48,8 +48,8 @@ const Contact: React.FC<ContactProps> = ({ selectedPlan }) => {
 
   const handleWhatsAppSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const message = `*Website Inquiry*%0A%0A*Name:* ${formData.name}%0A*Email:* ${formData.email}%0A*WhatsApp:* ${formData.mobile}%0A*Package:* ${formData.objective}%0A*Notes:* ${formData.details || 'None'}`;
-    window.open(`https://wa.me/27699751347?text=${message}`, '_blank');
+    const rawMessage = `*Website Inquiry*\n\n*Name:* ${formData.name}\n*Email:* ${formData.email}\n*WhatsApp:* ${formData.mobile}\n*Package:* ${formData.objective}\n*Notes:* ${formData.details || 'None'}`;
+    window.open(`https://wa.me/27699751347?text=${encodeURIComponent(rawMessage)}`, '_blank');
   };
 
   const handleEmailSubmit = () => {
