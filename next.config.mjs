@@ -24,6 +24,70 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/services',
+        destination: '/#services',
+        permanent: true,
+      },
+      {
+        source: '/portfolio',
+        destination: '/#portfolio',
+        permanent: true,
+      },
+      {
+        source: '/work',
+        destination: '/#portfolio',
+        permanent: true,
+      },
+      {
+        source: '/projects',
+        destination: '/#portfolio',
+        permanent: true,
+      },
+      {
+        source: '/pricing',
+        destination: '/#pricing',
+        permanent: true,
+      },
+      {
+        source: '/estimator',
+        destination: '/#pricing',
+        permanent: true,
+      },
+      {
+        source: '/process',
+        destination: '/#process',
+        permanent: true,
+      },
+      {
+        source: '/faq',
+        destination: '/#faq',
+        permanent: true,
+      },
+      {
+        source: '/contact',
+        destination: '/#contact',
+        permanent: true,
+      },
+      {
+        source: '/about',
+        destination: '/#services',
+        permanent: true,
+      },
+      {
+        source: '/index.html',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/home',
+        destination: '/',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
